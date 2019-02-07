@@ -217,6 +217,7 @@ public class mainGame {
         mnNewMenu.add(mntmMultiply);
         
         JMenuItem MenuAlgebra = new JMenuItem("algebra");
+        MenuAlgebra.setFont(new Font("Segoe UI", Font.PLAIN, 20));
         MenuAlgebra.setAction(Alge);
         mnNewMenu.add(MenuAlgebra);
         
@@ -233,7 +234,7 @@ public class mainGame {
     //addition menue item action
     private class additon extends AbstractAction {
         public additon() {
-            putValue(NAME, "add");
+            putValue(NAME, "Add");
             putValue(SHORT_DESCRIPTION, "Some short description");
         }
         public void actionPerformed(ActionEvent e) {
