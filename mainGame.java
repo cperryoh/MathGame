@@ -181,7 +181,7 @@ public class mainGame {
         
         SolveForX.setEnabled(true);
         SolveForX.setHorizontalAlignment(SwingConstants.CENTER);
-        SolveForX.setFont(new Font("Tahoma", Font.PLAIN, 15));
+        SolveForX.setFont(new Font("Tahoma", Font.PLAIN, 25));
         SolveForX.setBounds(-2, 26, 444, 37);
         frame.getContentPane().add(SolveForX);
         
@@ -234,7 +234,8 @@ public class mainGame {
     //addition menue item action
     private class additon extends AbstractAction {
         public additon() {
-            putValue(NAME, "Add");
+            putValue(NAME, "A"
+            		+ "dd");
             putValue(SHORT_DESCRIPTION, "Some short description");
         }
         public void actionPerformed(ActionEvent e) {
