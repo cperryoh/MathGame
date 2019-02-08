@@ -268,7 +268,7 @@ public class mainGame {
 			OPS.SetEnum(OperationEnum.operations.multiply);
 			results.setText("");
 			Practice();
-            Question.setText(FirstNum+"*"+SecondNum+"=");
+            Question.setText(FirstNum+" * "+SecondNum+"=");
 		}
 	}
 	private class range extends AbstractAction {
