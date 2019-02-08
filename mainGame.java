@@ -28,7 +28,7 @@ public class mainGame {
     static OperationEnum OPS = new OperationEnum(OperationEnum.operations.add);
     int FirstNum, SecondNum,ThirdNum, FourthNum= 0;
     private JTextField ans;
-    public static int max=10;
+    public static int max=12;
     public static int min=2;
     JLabel SolveForX = new JLabel("Solve for x");
     public static mainGame m;
