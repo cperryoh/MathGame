@@ -45,6 +45,7 @@ public class mainGame {
     private final Action rangeButton = new range();
     private final Action Alge = new Algebra();
     private final Action division = new Divisiom();
+    private final Action exeponents = new Exponents();
     /**
      * Launch the application.
      */
@@ -83,8 +84,7 @@ public class mainGame {
             if (OPS.GetEnum()==OperationEnum.operations.add) 
             {
             	return FirstNum + SecondNum == Integer.parseInt(ans.getText());
-            } 
-            
+            }
             else if(OPS.GetEnum()==OperationEnum.operations.subtract)
             {
             	return FirstNum - SecondNum == Integer.parseInt(ans.getText());
@@ -94,6 +94,9 @@ public class mainGame {
             }
             else if(OPS.GetEnum()==OperationEnum.operations.division) {
             	return FirstNum/Integer.parseInt(ans.getText())==SecondNum;
+            }
+            else if(OPS.GetEnum()==OperationEnum.operations.exponents) {
+            	return (int)Math.pow(FirstNum, 2)==Integer.parseInt(ans.getText());
             }
             else
             {
@@ -132,6 +135,10 @@ public class mainGame {
         	else if(OPS.GetEnum()==OperationEnum.operations.division) {
         		msg="Incorrect "+FirstNum+" ÷ "+SecondNum+" is "+Integer.toString(FirstNum/SecondNum);
         	}
+
+        	else if(OPS.GetEnum()==OperationEnum.operations.exponents) {
+        		msg="Incorrect "+FirstNum+" to the power of two is "+Integer.toString((int)Math.pow(FirstNum, 2));
+        	}
         	else {
         		msg="Incorrect "+FirstNum+" - "+SecondNum+" is "+(FirstNum-SecondNum);
         	}
@@ -157,6 +164,9 @@ public class mainGame {
     			ThirdNum = rand.nextInt(max-min+1) +min;
     			FirstNum=ThirdNum*SecondNum;
     			Question.setText(FirstNum+" ÷ "+SecondNum+"=");
+    		}
+    		else if(OPS.GetEnum()==OperationEnum.operations.exponents) {
+    			Question.setText(FirstNum+"^2  =");
     		}
     		else {
     			Question.setText(FirstNum+" - "+SecondNum+"=");
@@ -234,6 +244,11 @@ public class mainGame {
         mntmDivision.setAction(division);
         mntmDivision.setFont(new Font("Segoe UI", Font.PLAIN, 20));
         mnNewMenu.add(mntmDivision);
+        
+        JMenuItem mntmExponents = new JMenuItem("Exponents");
+        mntmExponents.setAction(exeponents);
+        mntmExponents.setFont(new Font("Segoe UI", Font.PLAIN, 20));
+        mnNewMenu.add(mntmExponents);
         
         JMenuItem MenuAlgebra = new JMenuItem("algebra");
         MenuAlgebra.setFont(new Font("Segoe UI", Font.PLAIN, 20));
@@ -326,6 +341,17 @@ public class mainGame {
 			results.setText("");
 			Practice();
             Question.setText(FirstNum+" ÷ "+SecondNum+"=");
+		}
+	}
+	private class Exponents extends AbstractAction {
+		public Exponents() {
+			putValue(NAME, "Exponents");
+			putValue(SHORT_DESCRIPTION, "Some short description");
+		}
+		public void actionPerformed(ActionEvent e) {
+			OPS.SetEnum(OperationEnum.operations.exponents);
+			results.setText("");
+			Practice();
 		}
 	}
 }
