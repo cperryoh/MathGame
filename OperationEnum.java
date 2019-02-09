@@ -1,7 +1,7 @@
 package MathGame;
 
 public class OperationEnum{
-	public enum operations{add,subtract,multiply,Algebra}
+	public enum operations{add,subtract,multiply,Algebra,division}
 	String operation;
 	static operations Value=operations.add;
 	OperationEnum(operations op){

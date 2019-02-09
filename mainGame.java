@@ -19,6 +19,9 @@ import javax.swing.Action;
 import java.awt.event.ActionListener;
 import java.awt.Component;
 import javax.swing.Box;
+import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.Alignment;
+import javax.swing.JPanel;
 public class mainGame {
     boolean currentOp = true;
     JLabel Question = new JLabel("8x+8");
@@ -41,6 +44,7 @@ public class mainGame {
     private final Action multiply = new multiply();
     private final Action rangeButton = new range();
     private final Action Alge = new Algebra();
+    private final Action division = new Divisiom();
     /**
      * Launch the application.
      */
@@ -88,6 +92,9 @@ public class mainGame {
             else if(OPS.GetEnum()==OperationEnum.operations.Algebra) {
             	return Integer.parseInt(ans.getText())==((total+(-FirstNum))/SecondNum);
             }
+            else if(OPS.GetEnum()==OperationEnum.operations.division) {
+            	return FirstNum/Integer.parseInt(ans.getText())==SecondNum;
+            }
             else
             {
             	return FirstNum * SecondNum == Integer.parseInt(ans.getText());
@@ -122,6 +129,9 @@ public class mainGame {
         	else if(OPS.GetEnum()==OperationEnum.operations.Algebra) {
         		msg="Incorrect x is "+Integer.toString((total+(-FirstNum))/SecondNum);
         	}
+        	else if(OPS.GetEnum()==OperationEnum.operations.division) {
+        		msg="Incorrect "+FirstNum+" ÷ "+SecondNum+" is "+Integer.toString(FirstNum/SecondNum);
+        	}
         	else {
         		msg="Incorrect "+FirstNum+" - "+SecondNum+" is "+(FirstNum-SecondNum);
         	}
@@ -143,6 +153,11 @@ public class mainGame {
     		else if(OPS.GetEnum()==OperationEnum.operations.multiply) {
     			Question.setText(FirstNum+" * "+SecondNum+"=");
     		}
+    		else if(OPS.GetEnum()==OperationEnum.operations.division) {
+    			ThirdNum = rand.nextInt(max-min+1) +min;
+    			FirstNum=ThirdNum*SecondNum;
+    			Question.setText(FirstNum+" ÷ "+SecondNum+"=");
+    		}
     		else {
     			Question.setText(FirstNum+" - "+SecondNum+"=");
     		}
@@ -160,35 +175,35 @@ public class mainGame {
         frame = new JFrame();
         frame.setBounds(100, 100, 450, 300);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.getContentPane().setLayout(null);
-        frame.setResizable(false);
+        frame.setResizable(true);
 
         ans = new JTextField();
+        ans.setBounds(235, 79, 133, 36);
         ans.addKeyListener(new MKeyListener());
         ans.setFont(new Font("Tahoma", Font.PLAIN, 30));
         ans.setToolTipText("");
         ans.setHorizontalAlignment(SwingConstants.CENTER);
-        ans.setBounds(233, 79, 133, 36);
-        frame.getContentPane().add(ans);
         ans.setColumns(10);
 
         results = new JLabel("");
+        results.setBounds(0, 180, 444, 47);
         results.setFont(new Font("Tahoma", Font.PLAIN, 30));
         results.setHorizontalAlignment(SwingConstants.CENTER);
-        results.setBounds(-2, 180, 444, 47);
-        frame.getContentPane().add(results);
+        SolveForX.setBounds(0, 26, 444, 37);
         
         
         SolveForX.setEnabled(true);
         SolveForX.setHorizontalAlignment(SwingConstants.CENTER);
         SolveForX.setFont(new Font("Tahoma", Font.PLAIN, 25));
-        SolveForX.setBounds(-2, 26, 444, 37);
-        frame.getContentPane().add(SolveForX);
+        Question.setBounds(2, 81, 223, 37);
         
         
         Question.setFont(new Font("Tahoma", Font.PLAIN, 25));
         Question.setHorizontalAlignment(SwingConstants.TRAILING);
-        Question.setBounds(0, 81, 223, 37);
+        frame.getContentPane().setLayout(null);
+        frame.getContentPane().add(ans);
+        frame.getContentPane().add(results);
+        frame.getContentPane().add(SolveForX);
         frame.getContentPane().add(Question);
 
         JMenuBar menuBar = new JMenuBar();
@@ -202,7 +217,6 @@ public class mainGame {
         menuBar.add(mnNewMenu);
         mntmAdd.setFont(new Font("Segoe UI", Font.PLAIN, 20));
         mntmAdd.setAction(add);
-
         mnNewMenu.add(mntmAdd);
         mntmSubtract.setFont(new Font("Segoe UI", Font.PLAIN, 20));
 
@@ -215,6 +229,11 @@ public class mainGame {
         
         
         mnNewMenu.add(mntmMultiply);
+        
+        JMenuItem mntmDivision = new JMenuItem("Division");
+        mntmDivision.setAction(division);
+        mntmDivision.setFont(new Font("Segoe UI", Font.PLAIN, 20));
+        mnNewMenu.add(mntmDivision);
         
         JMenuItem MenuAlgebra = new JMenuItem("algebra");
         MenuAlgebra.setFont(new Font("Segoe UI", Font.PLAIN, 20));
@@ -295,6 +314,18 @@ public class mainGame {
 			OPS.SetEnum(OperationEnum.operations.Algebra);
 			Practice();
 			
+		}
+	}
+	private class Divisiom extends AbstractAction {
+		public Divisiom() {
+			putValue(NAME, "Division");
+			putValue(SHORT_DESCRIPTION, "Some short description");
+		}
+		public void actionPerformed(ActionEvent e) {
+			OPS.SetEnum(OperationEnum.operations.division);
+			results.setText("");
+			Practice();
+            Question.setText(FirstNum+" ÷ "+SecondNum+"=");
 		}
 	}
 }
