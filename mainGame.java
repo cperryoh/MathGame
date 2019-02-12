@@ -196,8 +196,8 @@ public class mainGame {
         ans.setColumns(10);
 
         results = new JLabel("");
-        results.setBounds(0, 180, 444, 47);
-        results.setFont(new Font("Tahoma", Font.PLAIN, 30));
+        results.setBounds(0, 180, 424, 47);
+        results.setFont(new Font("Tahoma", Font.PLAIN, 20));
         results.setHorizontalAlignment(SwingConstants.CENTER);
         SolveForX.setBounds(0, 26, 444, 37);
         
