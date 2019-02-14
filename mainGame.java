@@ -22,9 +22,11 @@ import javax.swing.Box;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JPanel;
+import java.awt.Color;
 public class mainGame {
     boolean currentOp = true;
     JLabel Question = new JLabel("8x+8");
+    JPanel color = new JPanel();
     JMenuItem mntmMultiply = new JMenuItem("multiply");
     private static JFrame frame;
     int  total;
@@ -117,7 +119,7 @@ public class mainGame {
             }
         }
     }
-    void printMsg() {
+    void printMsg() {;
     	String msg = "";
     	if (checkIfCorrect()) {
             msg = "Correct!";
@@ -150,6 +152,9 @@ public class mainGame {
     }
     //sets up for ans
     public void Practice() {
+    	Random rnd = new Random();
+    	Color background=new Color(60 + rnd.nextInt((255 - 60) + 1),60 + rnd.nextInt((255 - 60) + 1),60 + rnd.nextInt((255 - 60) + 1));
+    	color.setBackground(background);
         Random rand = new Random();
     	FirstNum = rand.nextInt(max-min+1) +min;
         SecondNum = rand.nextInt(max-min+1) +min;
@@ -183,6 +188,7 @@ public class mainGame {
     //initializes the window
     private void initialize() {
         frame = new JFrame();
+        frame.getContentPane().setForeground(Color.BLACK);
         frame.setBounds(100, 100, 450, 300);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setResizable(true);
@@ -215,6 +221,11 @@ public class mainGame {
         frame.getContentPane().add(results);
         frame.getContentPane().add(SolveForX);
         frame.getContentPane().add(Question);
+        
+        color.setBackground(Color.WHITE);
+        color.setForeground(Color.WHITE);
+        color.setBounds(0, 0, 444, 232);
+        frame.getContentPane().add(color);
 
         JMenuBar menuBar = new JMenuBar();
         frame.setJMenuBar(menuBar);
