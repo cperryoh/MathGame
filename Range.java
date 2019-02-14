@@ -17,15 +17,18 @@ import java.awt.Label;
 import java.awt.Font;
 import javax.swing.AbstractAction;
 import javax.swing.Action;
+import javax.swing.JPanel;
 
 public class Range {
 
 	private JFrame frame;
 	private mainGame main;
+	public JPanel background = new JPanel();
 	private JTextField bottomNum;
 	private final Action action = new SwingAction();
 	private JTextField topNum;
 	JButton EnterRangeBttn = new JButton("Enter");
+	private JPanel panel;
 	/**
 	 * Launch the application.
 	 */
@@ -64,6 +67,10 @@ public class Range {
 		label.setAlignment(Label.CENTER);
 		label.setBounds(112, 31, 62, 22);
 		frame.getContentPane().add(label);
+		
+		
+		panel.setBounds(0, 0, 289, 162);
+		frame.getContentPane().add(panel);
 	}
 	JFrame getFrame() {
 		return frame;

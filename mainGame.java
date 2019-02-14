@@ -34,6 +34,7 @@ public class mainGame {
     int FirstNum, SecondNum,ThirdNum, FourthNum= 0;
     private JTextField ans;
     public static int max=12;
+    JLabel colorValue = new JLabel("New label");
     public static int min=2;
     JLabel SolveForX = new JLabel("Solve for x");
     public static mainGame m;
@@ -153,9 +154,11 @@ public class mainGame {
     //sets up for ans
     public void Practice() {
     	Random rnd = new Random();
-    	Color background=new Color(60 + rnd.nextInt((255 - 60) + 1),60 + rnd.nextInt((255 - 60) + 1),60 + rnd.nextInt((255 - 60) + 1));
-    	color.setBackground(background);
+    	Color backgroundColor=new Color(60 + rnd.nextInt((255 - 60) + 1),60 + rnd.nextInt((255 - 60) + 1),60 + rnd.nextInt((255 - 60) + 1));
+    	color.setBackground(backgroundColor);
         Random rand = new Random();
+        r.background.setBackground(backgroundColor);
+        colorValue.setText("#"+Integer.toHexString(backgroundColor.getRGB()).substring(2));
     	FirstNum = rand.nextInt(max-min+1) +min;
         SecondNum = rand.nextInt(max-min+1) +min;
     	if(OPS.GetEnum()!=OperationEnum.operations.Algebra) {
@@ -221,6 +224,9 @@ public class mainGame {
         frame.getContentPane().add(results);
         frame.getContentPane().add(SolveForX);
         frame.getContentPane().add(Question);
+        
+        colorValue.setBounds(0, 0, 71, 15);
+        frame.getContentPane().add(colorValue);
         
         color.setBackground(Color.WHITE);
         color.setForeground(Color.WHITE);
