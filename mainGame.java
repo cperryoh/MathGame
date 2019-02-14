@@ -26,18 +26,20 @@ import java.awt.Color;
 public class mainGame {
     boolean currentOp = true;
     JLabel Question = new JLabel("8x+8");
-    JPanel color = new JPanel();
     JMenuItem mntmMultiply = new JMenuItem("multiply");
     private static JFrame frame;
     int  total;
     static OperationEnum OPS = new OperationEnum(OperationEnum.operations.add);
     int FirstNum, SecondNum,ThirdNum, FourthNum= 0;
     private JTextField ans;
+	static JLabel Stats = new JLabel("New label");
     public static int max=12;
-    JLabel colorValue = new JLabel("New label");
+    static JLabel backgroundValue = new JLabel("New label");
     public static int min=2;
     JLabel SolveForX = new JLabel("Solve for x");
     public static mainGame m;
+    static int streak;
+	static int totalCorrect=0;
     public static Range r;
     JMenuItem mntmSubtract = new JMenuItem("subtract");
     JLabel results;
@@ -48,6 +50,7 @@ public class mainGame {
     private final Action rangeButton = new range();
     private final Action Alge = new Algebra();
     private final Action division = new Divisiom();
+    boolean hasMade=false;
     private final Action exeponents = new Exponents();
     /**
      * Launch the application.
@@ -63,6 +66,17 @@ public class mainGame {
                 try {
                     mainGame window = new mainGame();
                     r=new Range(window);
+           		 	r.getFrame().getContentPane().setBackground(randomColor());
+           		 	r.label.setBackground(r.getFrame().getContentPane().getBackground());
+           		 	frame.getContentPane().setBackground(r.getFrame().getContentPane().getBackground());
+
+           		 	//I dont know why it wants this here
+           			Stats.setHorizontalAlignment(SwingConstants.RIGHT);
+           			Stats.setFont(new Font("Tahoma", Font.PLAIN, 15));
+           			Stats.setBounds(235, 1, 197, 19);
+           			frame.getContentPane().add(Stats);
+           	    	Stats.setText("Total correct: "+totalCorrect+"      Streak: "+streak);
+           			
                     mainGame.frame.setVisible(true);
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -124,6 +138,8 @@ public class mainGame {
     	String msg = "";
     	if (checkIfCorrect()) {
             msg = "Correct!";
+            streak++;
+            totalCorrect++;
         } 
     	else {
         	if(OPS.GetEnum()==OperationEnum.operations.add) {
@@ -145,20 +161,28 @@ public class mainGame {
         	else {
         		msg="Incorrect "+FirstNum+" - "+SecondNum+" is "+(FirstNum-SecondNum);
         	}
+        	streak=0;
         }
     	results.setText(msg);
+    	Stats.setText("Total correct: "+totalCorrect+"      Streak: "+streak);
         Practice();
         ans.setText("");
         ans.requestFocus();
     }
-    //sets up for ans
-    public void Practice() {
+    static Color randomColor() {
     	Random rnd = new Random();
     	Color backgroundColor=new Color(60 + rnd.nextInt((255 - 60) + 1),60 + rnd.nextInt((255 - 60) + 1),60 + rnd.nextInt((255 - 60) + 1));
-    	color.setBackground(backgroundColor);
-        Random rand = new Random();
-        r.background.setBackground(backgroundColor);
-        colorValue.setText("#"+Integer.toHexString(backgroundColor.getRGB()).substring(2));
+        backgroundValue.setText("#"+Integer.toHexString(backgroundColor.getRGB()).substring(2));
+        return backgroundColor;
+    }
+    //sets up for ans
+    public void Practice() {
+    	if(hasMade) {
+    		 r.getFrame().getContentPane().setBackground(randomColor());
+    		 r.label.setBackground(r.getFrame().getContentPane().getBackground());
+    		 frame.getContentPane().setBackground(r.getFrame().getContentPane().getBackground());
+    	}
+    	Random rand = new Random();
     	FirstNum = rand.nextInt(max-min+1) +min;
         SecondNum = rand.nextInt(max-min+1) +min;
     	if(OPS.GetEnum()!=OperationEnum.operations.Algebra) {
@@ -190,6 +214,7 @@ public class mainGame {
     }
     //initializes the window
     private void initialize() {
+		
         frame = new JFrame();
         frame.getContentPane().setForeground(Color.BLACK);
         frame.setBounds(100, 100, 450, 300);
@@ -208,7 +233,7 @@ public class mainGame {
         results.setBounds(0, 180, 424, 47);
         results.setFont(new Font("Tahoma", Font.PLAIN, 20));
         results.setHorizontalAlignment(SwingConstants.CENTER);
-        SolveForX.setBounds(0, 26, 444, 37);
+        SolveForX.setBounds(0, 31, 444, 37);
         
         
         SolveForX.setEnabled(true);
@@ -225,13 +250,8 @@ public class mainGame {
         frame.getContentPane().add(SolveForX);
         frame.getContentPane().add(Question);
         
-        colorValue.setBounds(0, 0, 71, 15);
-        frame.getContentPane().add(colorValue);
-        
-        color.setBackground(Color.WHITE);
-        color.setForeground(Color.WHITE);
-        color.setBounds(0, 0, 444, 232);
-        frame.getContentPane().add(color);
+        backgroundValue.setBounds(0, 0, 71, 15);
+        frame.getContentPane().add(backgroundValue);
 
         JMenuBar menuBar = new JMenuBar();
         frame.setJMenuBar(menuBar);
@@ -279,6 +299,7 @@ public class mainGame {
         btnRange.setAction(rangeButton);
         menuBar.add(btnRange);
         Practice();
+        hasMade=true;
     }
 
     //enter button action
