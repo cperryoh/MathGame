@@ -7,7 +7,7 @@ public class OperationEnum{
 	OperationEnum(operations op){
 		Value=op;
 		if(Value==operations.add) {
-			operation="+";
+			operation=" +";
 		}
 		else if(Value==operations.subtract) {
 			operation="-";
