@@ -14,6 +14,8 @@ import javax.swing.AbstractAction;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.text.DateFormat;
+import java.text.DecimalFormat;
 import java.util.Random;
 import javax.swing.Action;
 import java.awt.event.ActionListener;
@@ -29,12 +31,12 @@ public class mainGame {
     JMenuItem mntmMultiply = new JMenuItem("multiply");
     private static JFrame frame;
     int  total;
+    int totalAns;
     static OperationEnum OPS = new OperationEnum(OperationEnum.operations.add);
     int FirstNum, SecondNum,ThirdNum, FourthNum= 0;
     private JTextField ans;
 	static JLabel Stats = new JLabel("New label");
     public static int max=12;
-    static JLabel backgroundValue = new JLabel("New label");
     public static int min=2;
     JLabel SolveForX = new JLabel("Solve for x");
     public static mainGame m;
@@ -66,12 +68,9 @@ public class mainGame {
                 try {
                     mainGame window = new mainGame();
                     r=new Range(window);
-           		 	r.getFrame().getContentPane().setBackground(randomColor());
-           		 	r.label.setBackground(r.getFrame().getContentPane().getBackground());
-           		 	frame.getContentPane().setBackground(r.getFrame().getContentPane().getBackground());
            			Stats.setHorizontalAlignment(SwingConstants.TRAILING);
            			Stats.setFont(new Font("Tahoma", Font.PLAIN, 15));
-           			Stats.setBounds(141, 1, 291, 19);
+           			Stats.setBounds(0, 1, 432, 19);
            			frame.getContentPane().add(Stats);
            	    	Stats.setText("Total correct: "+totalCorrect+"      Streak: "+streak);
            			
@@ -138,6 +137,9 @@ public class mainGame {
             msg = "Correct!";
             streak++;
             totalCorrect++;
+        	frame.getContentPane().setBackground(Color.green);
+        	r.getFrame().getContentPane().setBackground(Color.GREEN);
+        	r.label.setBackground(Color.green);
         } 
     	else {
         	if(OPS.GetEnum()==OperationEnum.operations.add) {
@@ -160,26 +162,21 @@ public class mainGame {
         		msg="Incorrect "+FirstNum+" - "+SecondNum+" is "+(FirstNum-SecondNum);
         	}
         	streak=0;
+        	frame.getContentPane().setBackground(Color.RED);
+        	totalAns++;
+        	r.getFrame().getContentPane().setBackground(Color.RED);
+        	r.label.setBackground(Color.red);
         }
+    	//DecimalFormat dcm = new DecimalFormat("00.#");
     	results.setText(msg);
+    	double percentage= ((double)totalCorrect/(double)totalAns)*100.0;
     	Stats.setText("Total correct: "+totalCorrect+"      Streak: "+streak);
         Practice();
         ans.setText("");
         ans.requestFocus();
     }
-    static Color randomColor() {
-    	Random rnd = new Random();
-    	Color backgroundColor=new Color(60 + rnd.nextInt((255 - 60) + 1),60 + rnd.nextInt((255 - 60) + 1),60 + rnd.nextInt((255 - 60) + 1));
-        backgroundValue.setText("#"+Integer.toHexString(backgroundColor.getRGB()).substring(2));
-        return backgroundColor;
-    }
     //sets up for ans
     public void Practice() {
-    	if(hasMade) {
-    		 r.getFrame().getContentPane().setBackground(randomColor());
-    		 r.label.setBackground(r.getFrame().getContentPane().getBackground());
-    		 frame.getContentPane().setBackground(r.getFrame().getContentPane().getBackground());
-    	}
     	Random rand = new Random();
     	FirstNum = rand.nextInt(max-min+1) +min;
         SecondNum = rand.nextInt(max-min+1) +min;
@@ -247,9 +244,6 @@ public class mainGame {
         frame.getContentPane().add(results);
         frame.getContentPane().add(SolveForX);
         frame.getContentPane().add(Question);
-        
-        backgroundValue.setBounds(0, 0, 71, 15);
-        frame.getContentPane().add(backgroundValue);
 
         JMenuBar menuBar = new JMenuBar();
         frame.setJMenuBar(menuBar);
