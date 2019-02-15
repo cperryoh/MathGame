@@ -346,6 +346,7 @@ public class mainGame {
 				r.getFrame().setLocation(frmPractice.getX()+frmPractice.getWidth(), frmPractice.getY());
 				r.getFrame().setVisible(true);
 			}
+			r.bottomNum.requestFocus();
 		}
 	}
 	private class Algebra extends AbstractAction {
