@@ -1,4 +1,4 @@
-package MathGame;
+ package MathGame;
 
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
@@ -17,15 +17,18 @@ import java.awt.Label;
 import java.awt.Font;
 import javax.swing.AbstractAction;
 import javax.swing.Action;
+import javax.swing.JPanel;
 
 public class Range {
 
 	private JFrame frame;
 	private mainGame main;
-	private JTextField bottomNum;
+	public JTextField bottomNum;
 	private final Action action = new SwingAction();
 	private JTextField topNum;
 	JButton EnterRangeBttn = new JButton("Enter");
+
+	public Label label = new Label("to");
 	/**
 	 * Launch the application.
 	 */
@@ -48,6 +51,11 @@ public class Range {
 		EnterRangeBttn.setBounds(100, 92, 89, 23);
 		frame.getContentPane().add(EnterRangeBttn);
 		
+		label.setFont(new Font("Dialog", Font.PLAIN, 13));
+		label.setAlignment(Label.CENTER);
+		label.setBounds(112, 31, 62, 22);
+		frame.getContentPane().add(label);
+		
 		bottomNum = new JTextField();
 		bottomNum.setBounds(10, 31, 86, 20);
 		frame.getContentPane().add(bottomNum);
@@ -55,15 +63,10 @@ public class Range {
 		
 		topNum = new JTextField();
 		topNum.addKeyListener(new MKeyListener());
+		bottomNum.addKeyListener(new MKeyListener());
 		topNum.setBounds(183, 31, 86, 20);
 		frame.getContentPane().add(topNum);
 		topNum.setColumns(10);
-		
-		Label label = new Label("to");
-		label.setFont(new Font("Dialog", Font.PLAIN, 13));
-		label.setAlignment(Label.CENTER);
-		label.setBounds(112, 31, 62, 22);
-		frame.getContentPane().add(label);
 	}
 	JFrame getFrame() {
 		return frame;
@@ -98,6 +101,10 @@ public class Range {
         				bottomNum.setText("");
         				topNum.setText("");
         			}
+            }
+            else if(event.getKeyCode() == KeyEvent.VK_ESCAPE) {
+            	main.ans.requestFocus(true);
+            	frame.setVisible(false);
             }
         }
     }
