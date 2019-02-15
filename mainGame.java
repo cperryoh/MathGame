@@ -29,12 +29,12 @@ public class mainGame {
     boolean currentOp = true;
     JLabel Question = new JLabel("8x+8");
     JMenuItem mntmMultiply = new JMenuItem("multiply");
-    private static JFrame frame;
+    private static JFrame frmPractice;
     int  total;
     int totalAns;
     static OperationEnum OPS = new OperationEnum(OperationEnum.operations.add);
     int FirstNum, SecondNum,ThirdNum, FourthNum= 0;
-    private JTextField ans;
+    public JTextField ans;
 	static JLabel Stats = new JLabel("New label");
     public static int max=12;
     public static int min=2;
@@ -71,10 +71,10 @@ public class mainGame {
            			Stats.setHorizontalAlignment(SwingConstants.TRAILING);
            			Stats.setFont(new Font("Tahoma", Font.PLAIN, 15));
            			Stats.setBounds(0, 1, 432, 19);
-           			frame.getContentPane().add(Stats);
+           			frmPractice.getContentPane().add(Stats);
            	    	Stats.setText("Total correct: "+totalCorrect+"      Streak: "+streak);
            			
-                    mainGame.frame.setVisible(true);
+                    mainGame.frmPractice.setVisible(true);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -137,7 +137,7 @@ public class mainGame {
             msg = "Correct!";
             streak++;
             totalCorrect++;
-        	frame.getContentPane().setBackground(Color.green);
+        	frmPractice.getContentPane().setBackground(Color.green);
         	r.getFrame().getContentPane().setBackground(Color.GREEN);
         	r.label.setBackground(Color.green);
         } 
@@ -162,7 +162,7 @@ public class mainGame {
         		msg="Incorrect "+FirstNum+" - "+SecondNum+" is "+(FirstNum-SecondNum);
         	}
         	streak=0;
-        	frame.getContentPane().setBackground(Color.RED);
+        	frmPractice.getContentPane().setBackground(Color.RED);
         	totalAns++;
         	r.getFrame().getContentPane().setBackground(Color.RED);
         	r.label.setBackground(Color.red);
@@ -210,18 +210,17 @@ public class mainGame {
     //initializes the window
     private void initialize() {
 		
-        frame = new JFrame();
-        frame.getContentPane().setForeground(Color.BLACK);
-        frame.setBounds(100, 100, 450, 300);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setResizable(true);
+        frmPractice = new JFrame();
+        frmPractice.setTitle("Practice");
+        frmPractice.getContentPane().setForeground(Color.BLACK);
+        frmPractice.setBounds(100, 100, 450, 300);
+        frmPractice.setResizable(true);
 
         ans = new JTextField();
         ans.setBounds(235, 79, 133, 36);
         ans.addKeyListener(new MKeyListener());
         ans.setFont(new Font("Tahoma", Font.PLAIN, 30));
         ans.setToolTipText("");
-        ans.setHorizontalAlignment(SwingConstants.CENTER);
         ans.setColumns(10);
 
         results = new JLabel("");
@@ -239,14 +238,14 @@ public class mainGame {
         
         Question.setFont(new Font("Tahoma", Font.PLAIN, 25));
         Question.setHorizontalAlignment(SwingConstants.TRAILING);
-        frame.getContentPane().setLayout(null);
-        frame.getContentPane().add(ans);
-        frame.getContentPane().add(results);
-        frame.getContentPane().add(SolveForX);
-        frame.getContentPane().add(Question);
+        frmPractice.getContentPane().setLayout(null);
+        frmPractice.getContentPane().add(ans);
+        frmPractice.getContentPane().add(results);
+        frmPractice.getContentPane().add(SolveForX);
+        frmPractice.getContentPane().add(Question);
 
         JMenuBar menuBar = new JMenuBar();
-        frame.setJMenuBar(menuBar);
+        frmPractice.setJMenuBar(menuBar);
         
         Component horizontalStrut_1 = Box.createHorizontalStrut(27);
         menuBar.add(horizontalStrut_1);
@@ -298,8 +297,7 @@ public class mainGame {
     //addition menue item action
     private class additon extends AbstractAction {
         public additon() {
-            putValue(NAME, "A"
-            		+ "dd");
+            putValue(NAME, "Add");
             putValue(SHORT_DESCRIPTION, "Some short description");
         }
         public void actionPerformed(ActionEvent e) {
@@ -342,10 +340,10 @@ public class mainGame {
 		}
 		public void actionPerformed(ActionEvent e) {
 			if(r.getFrame().isVisible()) {
-				r.getFrame().setLocation(frame.getX()+frame.getWidth(), frame.getY());
+				r.getFrame().setLocation(frmPractice.getX()+frmPractice.getWidth(), frmPractice.getY());
 			}
 			else {
-				r.getFrame().setLocation(frame.getX()+frame.getWidth(), frame.getY());
+				r.getFrame().setLocation(frmPractice.getX()+frmPractice.getWidth(), frmPractice.getY());
 				r.getFrame().setVisible(true);
 			}
 		}

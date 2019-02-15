@@ -23,7 +23,7 @@ public class Range {
 
 	private JFrame frame;
 	private mainGame main;
-	private JTextField bottomNum;
+	public JTextField bottomNum;
 	private final Action action = new SwingAction();
 	private JTextField topNum;
 	JButton EnterRangeBttn = new JButton("Enter");
@@ -63,6 +63,7 @@ public class Range {
 		
 		topNum = new JTextField();
 		topNum.addKeyListener(new MKeyListener());
+		bottomNum.addKeyListener(new MKeyListener());
 		topNum.setBounds(183, 31, 86, 20);
 		frame.getContentPane().add(topNum);
 		topNum.setColumns(10);
@@ -100,6 +101,10 @@ public class Range {
         				bottomNum.setText("");
         				topNum.setText("");
         			}
+            }
+            else if(event.getKeyCode() == KeyEvent.VK_ESCAPE) {
+            	main.ans.requestFocus(true);
+            	frame.setVisible(false);
             }
         }
     }
