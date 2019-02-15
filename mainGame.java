@@ -69,11 +69,9 @@ public class mainGame {
            		 	r.getFrame().getContentPane().setBackground(randomColor());
            		 	r.label.setBackground(r.getFrame().getContentPane().getBackground());
            		 	frame.getContentPane().setBackground(r.getFrame().getContentPane().getBackground());
-
-           		 	//I dont know why it wants this here
-           			Stats.setHorizontalAlignment(SwingConstants.RIGHT);
+           			Stats.setHorizontalAlignment(SwingConstants.TRAILING);
            			Stats.setFont(new Font("Tahoma", Font.PLAIN, 15));
-           			Stats.setBounds(235, 1, 197, 19);
+           			Stats.setBounds(141, 1, 291, 19);
            			frame.getContentPane().add(Stats);
            	    	Stats.setText("Total correct: "+totalCorrect+"      Streak: "+streak);
            			
