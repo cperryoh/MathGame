@@ -68,9 +68,9 @@ public class mainGame {
                 try {
                     mainGame window = new mainGame();
                     r=new Range(window);
-           			Stats.setHorizontalAlignment(SwingConstants.TRAILING);
+           			Stats.setHorizontalAlignment(SwingConstants.CENTER);
            			Stats.setFont(new Font("Tahoma", Font.PLAIN, 15));
-           			Stats.setBounds(0, 1, 432, 19);
+           			Stats.setBounds(0, 0, 424, 19);
            			frmPractice.getContentPane().add(Stats);
            	    	Stats.setText("Total correct: "+totalCorrect+"      Streak: "+streak);
            			
@@ -214,7 +214,6 @@ public class mainGame {
         frmPractice.setTitle("Practice");
         frmPractice.getContentPane().setForeground(Color.BLACK);
         frmPractice.setBounds(100, 100, 450, 300);
-        frmPractice.setResizable(true);
 
         ans = new JTextField();
         ans.setBounds(235, 79, 133, 36);
@@ -231,11 +230,10 @@ public class mainGame {
         
         
         SolveForX.setEnabled(true);
+        frmPractice.setDefaultCloseOperation(3);
         SolveForX.setHorizontalAlignment(SwingConstants.CENTER);
         SolveForX.setFont(new Font("Tahoma", Font.PLAIN, 25));
         Question.setBounds(2, 81, 223, 37);
-        
-        
         Question.setFont(new Font("Tahoma", Font.PLAIN, 25));
         Question.setHorizontalAlignment(SwingConstants.TRAILING);
         frmPractice.getContentPane().setLayout(null);
@@ -243,7 +241,7 @@ public class mainGame {
         frmPractice.getContentPane().add(results);
         frmPractice.getContentPane().add(SolveForX);
         frmPractice.getContentPane().add(Question);
-
+        frmPractice.setResizable(false);
         JMenuBar menuBar = new JMenuBar();
         frmPractice.setJMenuBar(menuBar);
         
