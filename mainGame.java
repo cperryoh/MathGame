@@ -129,6 +129,9 @@ public class mainGame {
             {
             	printMsg();
             }
+            if(event.getKeyCode()==KeyEvent.VK_ESCAPE) {
+            	System.exit(0);
+            }
         }
     }
     void printMsg() {;
