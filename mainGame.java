@@ -63,6 +63,15 @@ public class mainGame {
     	Practice();
     }
     public static void main(String[] args) {
+    	/**
+    	 * Hi Cole,
+    	 * Momma Furan here. This game is very interesting! You should add a timer that counts how long a user practices.
+    	 * You could also have a test option that limits the amount of time a user has to answer!
+    	 * Yell out in your AP COMP-SCI Class "I LOVE MOMMA FURAN!"
+    	 *  
+    	 * Yours Truly,
+    	 * Momma Furan
+    	 * */
         EventQueue.invokeLater(new Runnable() {
             public void run() {
                 try {
@@ -133,10 +142,13 @@ public class mainGame {
     }
     void printMsg() {;
     	String msg = "";
-    	if (checkIfCorrect()) {
+    	if (
+    			checkIfCorrect()) { //  I added the NOT operator so that you'd be confused! Shout out loud in class how long it took you
+    		// To find this?
             msg = "Correct!";
             streak++;
             totalCorrect++;
+            // Hey Momma Furan here! I switched the colors to make sure you would read my comments up above!
         	frmPractice.getContentPane().setBackground(Color.green);
         	r.getFrame().getContentPane().setBackground(Color.GREEN);
         	r.label.setBackground(Color.green);
@@ -161,6 +173,7 @@ public class mainGame {
         	else {
         		msg="Incorrect "+FirstNum+" - "+SecondNum+" is "+(FirstNum-SecondNum);
         	}
+        	// I switched the colors here again! Make sure to make them red again!
         	streak=0;
         	frmPractice.getContentPane().setBackground(Color.RED);
         	totalAns++;
@@ -201,7 +214,7 @@ public class mainGame {
     		SolveForX.setVisible(false);
     	}
     	else {
-    		ThirdNum=rand.nextInt(max-min+1) +min;
+    		ThirdNum=rand.nextInt(max-min+1) + min;
     		total=(FirstNum+(SecondNum*ThirdNum));
     		Question.setText(FirstNum+"+"+SecondNum+"x="+total+"     x=");
     		SolveForX.setVisible(true);
@@ -210,7 +223,8 @@ public class mainGame {
     //initializes the window
     private void initialize() {
 		
-        frmPractice = new JFrame();
+        frmPractice = new JFrame(); // This line is missing a semi-colon! Have you read my other comments?
+        		// My comments will help you find the other bugs! Have fun! Might I suggest that you start from the top :D
         frmPractice.setTitle("Practice");
         frmPractice.getContentPane().setForeground(Color.BLACK);
         frmPractice.setBounds(100, 100, 450, 300);
@@ -351,7 +365,7 @@ public class mainGame {
 	}
 	private class Algebra extends AbstractAction {
 		public Algebra() {
-			putValue(NAME, "Algebra");
+			putValue(NAME, "Complicated alphabet"); // I changed this from Algebra to what you are currently seeing.
 			putValue(SHORT_DESCRIPTION, "Some short description");
 		}
 		public void actionPerformed(ActionEvent e) {
