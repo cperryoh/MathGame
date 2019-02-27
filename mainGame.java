@@ -366,7 +366,7 @@ public class mainGame {
 	}
 	private class Algebra extends AbstractAction {
 		public Algebra() {
-			putValue(NAME, "Complicated alphabet"); // I changed this from Algebra to what you are currently seeing.
+			putValue(NAME, "Algebra"); // I changed this from Algebra to what you are currently seeing.
 			putValue(SHORT_DESCRIPTION, "Some short description");
 		}
 		public void actionPerformed(ActionEvent e) {
