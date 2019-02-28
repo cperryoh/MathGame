@@ -32,7 +32,7 @@ public class mainGame {
     private static JFrame frmPractice;
     int  total;
     int totalAns;
-    static OperationEnum OPS = new OperationEnum(OperationEnum.operations.add);
+    static OperationEnum OPS = new OperationEnum(OperationEnum.operations.additon);
     int FirstNum, SecondNum,ThirdNum, FourthNum= 0;
     public JTextField ans;
 	static JLabel Stats = new JLabel("New label");
@@ -53,7 +53,10 @@ public class mainGame {
     private final Action Alge = new Algebra();
     private final Action division = new Divisiom();
     boolean hasMade=false;
+    static Log l;
+    static int incorrect=0;
     private final Action exeponents = new Exponents();
+    private final Action log = new OpenLog();
     /**
      * Launch the application.
      */
@@ -77,11 +80,12 @@ public class mainGame {
                 try {
                     mainGame window = new mainGame();
                     r=new Range(window);
+                    l = new Log();
            			Stats.setHorizontalAlignment(SwingConstants.CENTER);
            			Stats.setFont(new Font("Tahoma", Font.PLAIN, 15));
-           			Stats.setBounds(0, 0, 424, 19);
+           			Stats.setBounds(0, 0, 444, 19);
            			frmPractice.getContentPane().add(Stats);
-           	    	Stats.setText("Total correct: "+totalCorrect+"      Streak: "+streak);
+           	    	Stats.setText("Correct: "+totalCorrect+"      Streak: "+streak+"      Incorrect: "+incorrect);
            			
                     mainGame.frmPractice.setVisible(true);
                 } catch (Exception e) {
@@ -104,7 +108,7 @@ public class mainGame {
     boolean checkIfCorrect() {
         if (!ans.getText().equals("")) 
         {
-            if (OPS.GetEnum()==OperationEnum.operations.add) 
+            if (OPS.GetEnum()==OperationEnum.operations.additon) 
             {
             	return FirstNum + SecondNum == Integer.parseInt(ans.getText());
             }
@@ -145,8 +149,8 @@ public class mainGame {
     }
     void printMsg() {;
     	String msg = "";
-    	if (
-    			checkIfCorrect()) { //  I added the NOT operator so that you'd be confused! Shout out loud in class how long it took you
+    	String answer = "";
+    	if (checkIfCorrect()) { //  I added the NOT operator so that you'd be confused! Shout out loud in class how long it took you
     		// To find this?
             msg = "Correct!";
             streak++;
@@ -157,24 +161,31 @@ public class mainGame {
         	r.label.setBackground(Color.green);
         } 
     	else {
-        	if(OPS.GetEnum()==OperationEnum.operations.add) {
+        	incorrect++;
+        	if(OPS.GetEnum()==OperationEnum.operations.additon) {
         		msg="Incorrect "+FirstNum+" + "+SecondNum+" is "+(FirstNum+SecondNum);
+        		answer=Integer.toString(FirstNum+SecondNum);
         	}
         	else if(OPS.GetEnum()==OperationEnum.operations.multiply) {
         		msg="Incorrect "+FirstNum+" * "+SecondNum+" is "+(FirstNum*SecondNum);
+        		answer=Integer.toString(FirstNum*SecondNum);
         	}
         	else if(OPS.GetEnum()==OperationEnum.operations.Algebra) {
         		msg="Incorrect x is "+Integer.toString((total+(-FirstNum))/SecondNum);
+        		answer=Integer.toString((total+(-FirstNum))/SecondNum);
         	}
         	else if(OPS.GetEnum()==OperationEnum.operations.division) {
         		msg="Incorrect "+FirstNum+" ÷ "+SecondNum+" is "+Integer.toString(FirstNum/SecondNum);
+        		answer=Integer.toString(FirstNum/SecondNum);
         	}
 
         	else if(OPS.GetEnum()==OperationEnum.operations.exponents) {
         		msg="Incorrect "+FirstNum+" to the power of two is "+Integer.toString((int)Math.pow(FirstNum, 2));
+        		answer=Integer.toString((int)Math.pow(FirstNum, 2));
         	}
         	else {
         		msg="Incorrect "+FirstNum+" - "+SecondNum+" is "+(FirstNum-SecondNum);
+        		answer=Integer.toString(FirstNum-SecondNum);
         	}
         	// I switched the colors here again! Make sure to make them red again!
         	streak=0;
@@ -185,8 +196,16 @@ public class mainGame {
         }
     	//DecimalFormat dcm = new DecimalFormat("00.#");
     	results.setText(msg);
-    	double percentage= ((double)totalCorrect/(double)totalAns)*100.0;
-    	Stats.setText("Total correct: "+totalCorrect+"      Streak: "+streak);
+    	
+    	//log
+    	if(totalCorrect+incorrect!=1) {
+    		l.logBox.append("\n"+(totalCorrect+incorrect)+", "+OPS.GetEnum().name()+") "+msg);
+    	}
+    	else {
+    		l.logBox.append((totalCorrect+incorrect)+", "+OPS.GetEnum().name()+") "+msg);
+    	}
+    	//end log code
+    	Stats.setText("Correct: "+totalCorrect+"      Streak: "+streak+"      Incorrect: "+incorrect);
         Practice();
         ans.setText("");
         ans.requestFocus();
@@ -197,7 +216,7 @@ public class mainGame {
     	FirstNum = rand.nextInt(max-min+1) +min;
         SecondNum = rand.nextInt(max-min+1) +min;
     	if(OPS.GetEnum()!=OperationEnum.operations.Algebra) {
-    		if(OPS.GetEnum()==OperationEnum.operations.add) {
+    		if(OPS.GetEnum()==OperationEnum.operations.additon) {
     			Question.setText(FirstNum+" + "+SecondNum+"=");
     		}
     		else if(OPS.GetEnum()==OperationEnum.operations.multiply) {
@@ -301,9 +320,17 @@ public class mainGame {
         Component horizontalStrut = Box.createHorizontalStrut(27);
         menuBar.add(horizontalStrut);
         
-        JButton btnRange = new JButton("Range");
-        btnRange.setAction(rangeButton);
-        menuBar.add(btnRange);
+        JMenu mnWindows = new JMenu("Windows");
+        mnWindows.setFont(new Font("Segoe UI", Font.PLAIN, 20));
+        menuBar.add(mnWindows);
+        
+        JMenuItem mntmRange = new JMenuItem("Range");
+        mntmRange.setAction(rangeButton);
+        mnWindows.add(mntmRange);
+        
+        JMenuItem mntmLog = new JMenuItem("Log");
+        mntmLog.setAction(log);
+        mnWindows.add(mntmLog);
         Practice();
         hasMade=true;
     }
@@ -316,7 +343,7 @@ public class mainGame {
             putValue(SHORT_DESCRIPTION, "Some short description");
         }
         public void actionPerformed(ActionEvent e) {
-            OPS.SetEnum(OperationEnum.operations.add);
+            OPS.SetEnum(OperationEnum.operations.additon);
             results.setText("");
             Practice();
             Question.setText(FirstNum+"+"+SecondNum+"=");
@@ -350,7 +377,7 @@ public class mainGame {
 	}
 	private class range extends AbstractAction {
 		public range() {
-			putValue(NAME, "range");
+			putValue(NAME, "Range");
 			putValue(SHORT_DESCRIPTION, "Some short description");
 		}
 		public void actionPerformed(ActionEvent e) {
@@ -366,7 +393,7 @@ public class mainGame {
 	}
 	private class Algebra extends AbstractAction {
 		public Algebra() {
-			putValue(NAME, "Complicated alphabet"); // I changed this from Algebra to what you are currently seeing.
+			putValue(NAME, "Algebra"); // I changed this from Algebra to what you are currently seeing.
 			putValue(SHORT_DESCRIPTION, "Some short description");
 		}
 		public void actionPerformed(ActionEvent e) {
@@ -396,6 +423,21 @@ public class mainGame {
 			OPS.SetEnum(OperationEnum.operations.exponents);
 			results.setText("");
 			Practice();
+		}
+	}
+	private class OpenLog extends AbstractAction {
+		public OpenLog() {
+			putValue(NAME, "Log");
+			putValue(SHORT_DESCRIPTION, "Some short description");
+		}
+		public void actionPerformed(ActionEvent e) {
+			if(l.getFrame().isVisible()) {
+				l.getFrame().setLocation(frmPractice.getX()-l.getFrame().getWidth(), frmPractice.getY());
+			}
+			else {
+				l.getFrame().setLocation(frmPractice.getX()-l.getFrame().getWidth(), frmPractice.getY());
+				l.getFrame().setVisible(true);
+			}
 		}
 	}
 }

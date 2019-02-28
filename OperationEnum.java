@@ -1,12 +1,12 @@
 package MathGame;
 
 public class OperationEnum{
-	public enum operations{add,subtract,multiply,Algebra,division,exponents}
+	public enum operations{additon,subtract,multiply,Algebra,division,exponents}
 	String operation;
-	static operations Value=operations.add;
+	static operations Value=operations.additon;
 	OperationEnum(operations op){
 		Value=op;
-		if(Value==operations.add) {
+		if(Value==operations.additon) {
 			operation="+";
 		}
 		else if(Value==operations.subtract) {
