@@ -9,6 +9,7 @@ import javax.swing.JTextArea;
 import javax.swing.border.LineBorder;
 import java.awt.Color;
 import javax.swing.border.BevelBorder;
+import java.awt.Font;
 
 public class Log {
 
@@ -37,6 +38,7 @@ public class Log {
 	public Log() {
 		initialize();
 		frame.setResizable(false);
+		logBox.setFont(new Font("Consolas", Font.PLAIN, 13));
 		logBox.setEditable(false);
 	}
 	JFrame getFrame() {
@@ -48,7 +50,7 @@ public class Log {
 	private void initialize() {
 		frame = new JFrame();
 		frame.setBounds(100, 100, 304, 300);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
 		JPanel panel = new JPanel();

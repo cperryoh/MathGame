@@ -41,6 +41,8 @@ public class mainGame {
     JLabel SolveForX = new JLabel("Solve for x");
     public static mainGame m;
     static int streak;
+    Color incorrectColor=new Color(255, 79, 79);
+    Color correctColor=new Color(107, 255, 96);
 	static int totalCorrect=0;
     public static Range r;
     JMenuItem mntmSubtract = new JMenuItem("subtract");
@@ -57,24 +59,12 @@ public class mainGame {
     static int incorrect=0;
     private final Action exeponents = new Exponents();
     private final Action log = new OpenLog();
-    /**
-     * Launch the application.
-     */
     public void setRange(int min, int max) {
     	this.min=min;
     	this.max=max;
     	Practice();
     }
     public static void main(String[] args) {
-    	/**
-    	 * Hi Cole,
-    	 * Momma Furan here. This game is very interesting! You should add a timer that counts how long a user practices.
-    	 * You could also have a test option that limits the amount of time a user has to answer!
-    	 * Yell out in your AP COMP-SCI Class "I LOVE MOMMA FURAN!"
-    	 *  
-    	 * Yours Truly,
-    	 * Momma Furan
-    	 * */
         EventQueue.invokeLater(new Runnable() {
             public void run() {
                 try {
@@ -100,10 +90,6 @@ public class mainGame {
     public mainGame() {
     	initialize();
     }
-    /**
-     * Initialize the contents of the frame.
-     */
-
     //checks if the user answer is correct
     boolean checkIfCorrect() {
         if (!ans.getText().equals("")) 
@@ -136,7 +122,7 @@ public class mainGame {
         }
     }
     //key lisenter
-    class MKeyListener extends KeyAdapter {
+    class TextBox extends KeyAdapter {
         public void keyPressed(KeyEvent event) {
             if (event.getKeyCode() == KeyEvent.VK_ENTER)
             {
@@ -150,15 +136,14 @@ public class mainGame {
     void printMsg() {;
     	String msg = "";
     	String answer = "";
-    	if (checkIfCorrect()) { //  I added the NOT operator so that you'd be confused! Shout out loud in class how long it took you
-    		// To find this?
+    	if (checkIfCorrect()) {
             msg = "Correct!";
             streak++;
             totalCorrect++;
-            // Hey Momma Furan here! I switched the colors to make sure you would read my comments up above!
-        	frmPractice.getContentPane().setBackground(Color.green);
-        	r.getFrame().getContentPane().setBackground(Color.GREEN);
-        	r.label.setBackground(Color.green);
+        	frmPractice.getContentPane().setBackground(correctColor);
+        	r.getFrame().getContentPane().setBackground(correctColor);
+        	r.label.setBackground(correctColor);
+        	l.logBox.setBackground(correctColor);
         } 
     	else {
         	incorrect++;
@@ -187,14 +172,13 @@ public class mainGame {
         		msg="Incorrect "+FirstNum+" - "+SecondNum+" is "+(FirstNum-SecondNum);
         		answer=Integer.toString(FirstNum-SecondNum);
         	}
-        	// I switched the colors here again! Make sure to make them red again!
         	streak=0;
-        	frmPractice.getContentPane().setBackground(Color.RED);
+        	frmPractice.getContentPane().setBackground(incorrectColor);
         	totalAns++;
-        	r.getFrame().getContentPane().setBackground(Color.RED);
-        	r.label.setBackground(Color.red);
+        	r.getFrame().getContentPane().setBackground(incorrectColor);
+        	r.label.setBackground(incorrectColor);
+        	l.logBox.setBackground(incorrectColor);
         }
-    	//DecimalFormat dcm = new DecimalFormat("00.#");
     	results.setText(msg);
     	
     	//log
@@ -245,15 +229,14 @@ public class mainGame {
     //initializes the window
     private void initialize() {
 		
-        frmPractice = new JFrame(); // This line is missing a semi-colon! Have you read my other comments?
-        		// My comments will help you find the other bugs! Have fun! Might I suggest that you start from the top :D
+        frmPractice = new JFrame();
         frmPractice.setTitle("Practice");
         frmPractice.getContentPane().setForeground(Color.BLACK);
         frmPractice.setBounds(100, 100, 450, 300);
 
         ans = new JTextField();
         ans.setBounds(235, 79, 133, 36);
-        ans.addKeyListener(new MKeyListener());
+        ans.addKeyListener(new TextBox());
         ans.setFont(new Font("Tahoma", Font.PLAIN, 30));
         ans.setToolTipText("");
         ans.setColumns(10);
@@ -274,6 +257,7 @@ public class mainGame {
         Question.setHorizontalAlignment(SwingConstants.TRAILING);
         frmPractice.getContentPane().setLayout(null);
         frmPractice.getContentPane().add(ans);
+       
         frmPractice.getContentPane().add(results);
         frmPractice.getContentPane().add(SolveForX);
         frmPractice.getContentPane().add(Question);
@@ -334,8 +318,6 @@ public class mainGame {
         Practice();
         hasMade=true;
     }
-
-    //enter button action
     //addition menue item action
     private class additon extends AbstractAction {
         public additon() {
@@ -393,7 +375,7 @@ public class mainGame {
 	}
 	private class Algebra extends AbstractAction {
 		public Algebra() {
-			putValue(NAME, "Algebra"); // I changed this from Algebra to what you are currently seeing.
+			putValue(NAME, "Algebra");
 			putValue(SHORT_DESCRIPTION, "Some short description");
 		}
 		public void actionPerformed(ActionEvent e) {
