@@ -74,6 +74,8 @@ public class mainGame {
            			Stats.setHorizontalAlignment(SwingConstants.CENTER);
            			Stats.setFont(new Font("Tahoma", Font.PLAIN, 15));
            			Stats.setBounds(0, 0, 444, 19);
+           			
+           			//
            			frmPractice.getContentPane().add(Stats);
            	    	Stats.setText("Correct: "+totalCorrect+"      Streak: "+streak+"      Incorrect: "+incorrect);
            			
