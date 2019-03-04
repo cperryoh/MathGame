@@ -15,6 +15,9 @@ public class Log {
 	private JFrame frame;
 	JTextArea logBox = new JTextArea();
 
+	public JPanel panel = new JPanel();
+	JScrollPane scrollPane = new JScrollPane();
+
 	/**
 	 * Launch the application.
 	 */
@@ -51,12 +54,10 @@ public class Log {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
-		JPanel panel = new JPanel();
 		panel.setBounds(0, 0, 298, 271);
 		frame.getContentPane().add(panel);
 		panel.setLayout(null);
 		
-		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setViewportBorder(new LineBorder(new Color(0, 0, 0)));
 		scrollPane.setBounds(0, 0, 301, 274);
 		panel.add(scrollPane);

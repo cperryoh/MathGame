@@ -24,6 +24,8 @@ import javax.swing.Box;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JPanel;
+import javax.swing.JScrollBar;
+
 import java.awt.Color;
 public class mainGame {
     boolean currentOp = true;
@@ -141,6 +143,7 @@ public class mainGame {
             if (event.getKeyCode() == KeyEvent.VK_ENTER)
             {
             	printMsg();
+        		l.scrollPane.setAutoscrolls(true);
             }
             if(event.getKeyCode()==KeyEvent.VK_ESCAPE) {
             	System.exit(0);
@@ -157,8 +160,10 @@ public class mainGame {
             totalCorrect++;
             // Hey Momma Furan here! I switched the colors to make sure you would read my comments up above!
         	frmPractice.getContentPane().setBackground(Color.green);
-        	r.getFrame().getContentPane().setBackground(Color.GREEN);
+        	l.logBox.setBackground(Color.GREEN);
+        	l.panel.setBackground(Color.GREEN);
         	r.label.setBackground(Color.green);
+        	r.getFrame().getContentPane().setBackground(Color.GREEN);
         } 
     	else {
         	incorrect++;
@@ -190,6 +195,7 @@ public class mainGame {
         	// I switched the colors here again! Make sure to make them red again!
         	streak=0;
         	frmPractice.getContentPane().setBackground(Color.RED);
+        	l.logBox.setBackground(Color.red);
         	totalAns++;
         	r.getFrame().getContentPane().setBackground(Color.RED);
         	r.label.setBackground(Color.red);
@@ -204,6 +210,10 @@ public class mainGame {
     	else {
     		l.logBox.append((totalCorrect+incorrect)+", "+OPS.GetEnum().name()+") "+msg);
     	}
+
+
+    	JScrollBar vertical = l.scrollPane.getVerticalScrollBar();
+    	vertical.setValue( vertical.getMaximum());
     	//end log code
     	Stats.setText("Correct: "+totalCorrect+"      Streak: "+streak+"      Incorrect: "+incorrect);
         Practice();
