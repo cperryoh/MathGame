@@ -151,28 +151,21 @@ public class mainGame {
         	incorrect++;
         	if(OPS.GetEnum()==OperationEnum.operations.additon) {
         		msg="Incorrect "+FirstNum+" + "+SecondNum+" is "+(FirstNum+SecondNum);
-        		answer=Integer.toString(FirstNum+SecondNum);
         	}
         	else if(OPS.GetEnum()==OperationEnum.operations.multiply) {
         		msg="Incorrect "+FirstNum+" * "+SecondNum+" is "+(FirstNum*SecondNum);
-        		answer=Integer.toString(FirstNum*SecondNum);
         	}
         	else if(OPS.GetEnum()==OperationEnum.operations.Algebra) {
         		msg="Incorrect x is "+Integer.toString((total+(-FirstNum))/SecondNum);
-        		answer=Integer.toString((total+(-FirstNum))/SecondNum);
         	}
         	else if(OPS.GetEnum()==OperationEnum.operations.division) {
         		msg="Incorrect "+FirstNum+" ÷ "+SecondNum+" is "+Integer.toString(FirstNum/SecondNum);
-        		answer=Integer.toString(FirstNum/SecondNum);
         	}
-
         	else if(OPS.GetEnum()==OperationEnum.operations.exponents) {
         		msg="Incorrect "+FirstNum+" to the power of two is "+Integer.toString((int)Math.pow(FirstNum, 2));
-        		answer=Integer.toString((int)Math.pow(FirstNum, 2));
         	}
         	else {
         		msg="Incorrect "+FirstNum+" - "+SecondNum+" is "+(FirstNum-SecondNum);
-        		answer=Integer.toString(FirstNum-SecondNum);
         	}
         	streak=0;
         	frmPractice.getContentPane().setBackground(incorrectColor);
@@ -185,10 +178,10 @@ public class mainGame {
     	
     	//log
     	if(totalCorrect+incorrect!=1) {
-    		l.logBox.append("\n"+(totalCorrect+incorrect)+", "+OPS.GetEnum().name()+") "+msg);
+    		l.logBox.append("\n"+(totalCorrect+incorrect)+", "+OPS.GetEnum().name()+") "+msg+" you said: "+ans.getText()+" the correct answer is:"+getAns());
     	}
     	else {
-    		l.logBox.append((totalCorrect+incorrect)+", "+OPS.GetEnum().name()+") "+msg);
+    		l.logBox.append((totalCorrect+incorrect)+", "+OPS.GetEnum().name()+") "+msg+" you said: "+ans.getText()+" the correct answer is: "+getAns());
     	}
     	//end log code
     	Stats.setText("Correct: "+totalCorrect+"      Streak: "+streak+"      Incorrect: "+incorrect);
@@ -197,6 +190,29 @@ public class mainGame {
         ans.requestFocus();
     }
     //sets up for ans
+    String getAns() {
+    	String answer ="";
+    	if(OPS.GetEnum()==OperationEnum.operations.additon) {
+    		answer=Integer.toString(FirstNum+SecondNum);
+    	}
+    	else if(OPS.GetEnum()==OperationEnum.operations.multiply) {
+    		answer=Integer.toString(FirstNum*SecondNum);
+    	}
+    	else if(OPS.GetEnum()==OperationEnum.operations.Algebra) {
+    		answer=Integer.toString((total+(-FirstNum))/SecondNum);
+    	}
+    	else if(OPS.GetEnum()==OperationEnum.operations.division) {
+    		answer=Integer.toString(FirstNum/SecondNum);
+    	}
+
+    	else if(OPS.GetEnum()==OperationEnum.operations.exponents) {
+    		answer=Integer.toString((int)Math.pow(FirstNum, 2));
+    	}
+    	else {
+    		answer=Integer.toString(FirstNum-SecondNum);
+    	}
+    	return answer;
+    }
     public void Practice() {
     	Random rand = new Random();
     	FirstNum = rand.nextInt(max-min+1) +min;
