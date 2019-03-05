@@ -24,6 +24,8 @@ import javax.swing.Box;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JPanel;
+import javax.swing.JScrollBar;
+
 import java.awt.Color;
 public class mainGame {
     boolean currentOp = true;
@@ -41,8 +43,6 @@ public class mainGame {
     JLabel SolveForX = new JLabel("Solve for x");
     public static mainGame m;
     static int streak;
-    Color incorrectColor=new Color(255, 79, 79);
-    Color correctColor=new Color(107, 255, 96);
 	static int totalCorrect=0;
     public static Range r;
     JMenuItem mntmSubtract = new JMenuItem("subtract");
@@ -59,12 +59,24 @@ public class mainGame {
     static int incorrect=0;
     private final Action exeponents = new Exponents();
     private final Action log = new OpenLog();
+    /**
+     * Launch the application.
+     */
     public void setRange(int min, int max) {
     	this.min=min;
     	this.max=max;
     	Practice();
     }
     public static void main(String[] args) {
+    	/**
+    	 * Hi Cole,
+    	 * Momma Furan here. This game is very interesting! You should add a timer that counts how long a user practices.
+    	 * You could also have a test option that limits the amount of time a user has to answer!
+    	 * Yell out in your AP COMP-SCI Class "I LOVE MOMMA FURAN!"
+    	 *  
+    	 * Yours Truly,
+    	 * Momma Furan
+    	 * */
         EventQueue.invokeLater(new Runnable() {
             public void run() {
                 try {
@@ -74,8 +86,6 @@ public class mainGame {
            			Stats.setHorizontalAlignment(SwingConstants.CENTER);
            			Stats.setFont(new Font("Tahoma", Font.PLAIN, 15));
            			Stats.setBounds(0, 0, 444, 19);
-           			
-           			//
            			frmPractice.getContentPane().add(Stats);
            	    	Stats.setText("Correct: "+totalCorrect+"      Streak: "+streak+"      Incorrect: "+incorrect);
            			
@@ -92,6 +102,10 @@ public class mainGame {
     public mainGame() {
     	initialize();
     }
+    /**
+     * Initialize the contents of the frame.
+     */
+
     //checks if the user answer is correct
     boolean checkIfCorrect() {
         if (!ans.getText().equals("")) 
@@ -124,11 +138,12 @@ public class mainGame {
         }
     }
     //key lisenter
-    class TextBox extends KeyAdapter {
+    class MKeyListener extends KeyAdapter {
         public void keyPressed(KeyEvent event) {
             if (event.getKeyCode() == KeyEvent.VK_ENTER)
             {
             	printMsg();
+        		l.scrollPane.setAutoscrolls(true);
             }
             if(event.getKeyCode()==KeyEvent.VK_ESCAPE) {
             	System.exit(0);
@@ -138,51 +153,67 @@ public class mainGame {
     void printMsg() {;
     	String msg = "";
     	String answer = "";
-    	if (checkIfCorrect()) {
+    	if (checkIfCorrect()) { //  I added the NOT operator so that you'd be confused! Shout out loud in class how long it took you
+    		// To find this?
             msg = "Correct!";
             streak++;
             totalCorrect++;
-        	frmPractice.getContentPane().setBackground(correctColor);
-        	r.getFrame().getContentPane().setBackground(correctColor);
-        	r.label.setBackground(correctColor);
-        	l.logBox.setBackground(correctColor);
+            // Hey Momma Furan here! I switched the colors to make sure you would read my comments up above!
+        	frmPractice.getContentPane().setBackground(Color.green);
+        	l.logBox.setBackground(Color.GREEN);
+        	l.panel.setBackground(Color.GREEN);
+        	r.label.setBackground(Color.green);
+        	r.getFrame().getContentPane().setBackground(Color.GREEN);
         } 
     	else {
         	incorrect++;
         	if(OPS.GetEnum()==OperationEnum.operations.additon) {
         		msg="Incorrect "+FirstNum+" + "+SecondNum+" is "+(FirstNum+SecondNum);
+        		answer=Integer.toString(FirstNum+SecondNum);
         	}
         	else if(OPS.GetEnum()==OperationEnum.operations.multiply) {
         		msg="Incorrect "+FirstNum+" * "+SecondNum+" is "+(FirstNum*SecondNum);
+        		answer=Integer.toString(FirstNum*SecondNum);
         	}
         	else if(OPS.GetEnum()==OperationEnum.operations.Algebra) {
         		msg="Incorrect x is "+Integer.toString((total+(-FirstNum))/SecondNum);
+        		answer=Integer.toString((total+(-FirstNum))/SecondNum);
         	}
         	else if(OPS.GetEnum()==OperationEnum.operations.division) {
         		msg="Incorrect "+FirstNum+" ÷ "+SecondNum+" is "+Integer.toString(FirstNum/SecondNum);
+        		answer=Integer.toString(FirstNum/SecondNum);
         	}
+
         	else if(OPS.GetEnum()==OperationEnum.operations.exponents) {
         		msg="Incorrect "+FirstNum+" to the power of two is "+Integer.toString((int)Math.pow(FirstNum, 2));
+        		answer=Integer.toString((int)Math.pow(FirstNum, 2));
         	}
         	else {
         		msg="Incorrect "+FirstNum+" - "+SecondNum+" is "+(FirstNum-SecondNum);
+        		answer=Integer.toString(FirstNum-SecondNum);
         	}
+        	// I switched the colors here again! Make sure to make them red again!
         	streak=0;
-        	frmPractice.getContentPane().setBackground(incorrectColor);
+        	frmPractice.getContentPane().setBackground(Color.RED);
+        	l.logBox.setBackground(Color.red);
         	totalAns++;
-        	r.getFrame().getContentPane().setBackground(incorrectColor);
-        	r.label.setBackground(incorrectColor);
-        	l.logBox.setBackground(incorrectColor);
+        	r.getFrame().getContentPane().setBackground(Color.RED);
+        	r.label.setBackground(Color.red);
         }
+    	//DecimalFormat dcm = new DecimalFormat("00.#");
     	results.setText(msg);
     	
     	//log
     	if(totalCorrect+incorrect!=1) {
-    		l.logBox.append("\n"+(totalCorrect+incorrect)+", "+OPS.GetEnum().name()+") "+msg+" you said: "+ans.getText()+" the correct answer is:"+getAns());
+    		l.logBox.append("\n"+(totalCorrect+incorrect)+", "+OPS.GetEnum().name()+") "+msg);
     	}
     	else {
-    		l.logBox.append((totalCorrect+incorrect)+", "+OPS.GetEnum().name()+") "+msg+" you said: "+ans.getText()+" the correct answer is: "+getAns());
+    		l.logBox.append((totalCorrect+incorrect)+", "+OPS.GetEnum().name()+") "+msg);
     	}
+
+
+    	JScrollBar vertical = l.scrollPane.getVerticalScrollBar();
+    	vertical.setValue( vertical.getMaximum());
     	//end log code
     	Stats.setText("Correct: "+totalCorrect+"      Streak: "+streak+"      Incorrect: "+incorrect);
         Practice();
@@ -190,29 +221,6 @@ public class mainGame {
         ans.requestFocus();
     }
     //sets up for ans
-    String getAns() {
-    	String answer ="";
-    	if(OPS.GetEnum()==OperationEnum.operations.additon) {
-    		answer=Integer.toString(FirstNum+SecondNum);
-    	}
-    	else if(OPS.GetEnum()==OperationEnum.operations.multiply) {
-    		answer=Integer.toString(FirstNum*SecondNum);
-    	}
-    	else if(OPS.GetEnum()==OperationEnum.operations.Algebra) {
-    		answer=Integer.toString((total+(-FirstNum))/SecondNum);
-    	}
-    	else if(OPS.GetEnum()==OperationEnum.operations.division) {
-    		answer=Integer.toString(FirstNum/SecondNum);
-    	}
-
-    	else if(OPS.GetEnum()==OperationEnum.operations.exponents) {
-    		answer=Integer.toString((int)Math.pow(FirstNum, 2));
-    	}
-    	else {
-    		answer=Integer.toString(FirstNum-SecondNum);
-    	}
-    	return answer;
-    }
     public void Practice() {
     	Random rand = new Random();
     	FirstNum = rand.nextInt(max-min+1) +min;
@@ -247,14 +255,15 @@ public class mainGame {
     //initializes the window
     private void initialize() {
 		
-        frmPractice = new JFrame();
+        frmPractice = new JFrame(); // This line is missing a semi-colon! Have you read my other comments?
+        		// My comments will help you find the other bugs! Have fun! Might I suggest that you start from the top :D
         frmPractice.setTitle("Practice");
         frmPractice.getContentPane().setForeground(Color.BLACK);
         frmPractice.setBounds(100, 100, 450, 300);
 
         ans = new JTextField();
         ans.setBounds(235, 79, 133, 36);
-        ans.addKeyListener(new TextBox());
+        ans.addKeyListener(new MKeyListener());
         ans.setFont(new Font("Tahoma", Font.PLAIN, 30));
         ans.setToolTipText("");
         ans.setColumns(10);
@@ -275,7 +284,6 @@ public class mainGame {
         Question.setHorizontalAlignment(SwingConstants.TRAILING);
         frmPractice.getContentPane().setLayout(null);
         frmPractice.getContentPane().add(ans);
-       
         frmPractice.getContentPane().add(results);
         frmPractice.getContentPane().add(SolveForX);
         frmPractice.getContentPane().add(Question);
@@ -336,6 +344,8 @@ public class mainGame {
         Practice();
         hasMade=true;
     }
+
+    //enter button action
     //addition menue item action
     private class additon extends AbstractAction {
         public additon() {
@@ -393,7 +403,7 @@ public class mainGame {
 	}
 	private class Algebra extends AbstractAction {
 		public Algebra() {
-			putValue(NAME, "Algebra");
+			putValue(NAME, "Algebra"); // I changed this from Algebra to what you are currently seeing.
 			putValue(SHORT_DESCRIPTION, "Some short description");
 		}
 		public void actionPerformed(ActionEvent e) {

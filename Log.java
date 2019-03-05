@@ -9,12 +9,14 @@ import javax.swing.JTextArea;
 import javax.swing.border.LineBorder;
 import java.awt.Color;
 import javax.swing.border.BevelBorder;
-import java.awt.Font;
 
 public class Log {
 
 	private JFrame frame;
 	JTextArea logBox = new JTextArea();
+
+	public JPanel panel = new JPanel();
+	JScrollPane scrollPane = new JScrollPane();
 
 	/**
 	 * Launch the application.
@@ -39,7 +41,6 @@ public class Log {
 		initialize();
 		frame.setResizable(false);
 		logBox.setEditable(false);
-		logBox.setFont(new Font("Consolas", Font.PLAIN, 13));
 	}
 	JFrame getFrame() {
 		return frame;
@@ -49,18 +50,16 @@ public class Log {
 	 */
 	private void initialize() {
 		frame = new JFrame();
-		frame.setBounds(100, 100, 409, 300);
-		frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+		frame.setBounds(100, 100, 304, 300);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
-		JPanel panel = new JPanel();
-		panel.setBounds(0, 0, 403, 271);
+		panel.setBounds(0, 0, 298, 271);
 		frame.getContentPane().add(panel);
 		panel.setLayout(null);
 		
-		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setViewportBorder(new LineBorder(new Color(0, 0, 0)));
-		scrollPane.setBounds(0, 0, 403, 274);
+		scrollPane.setBounds(0, 0, 301, 274);
 		panel.add(scrollPane);
 		scrollPane.setAutoscrolls(true);
 		
