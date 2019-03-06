@@ -43,7 +43,7 @@ public class Range {
 		frame.setTitle("Set range");
 		frame.setBounds(100, 100, 295, 191);
 		frame.setResizable(false);
-		frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setVisible(false);
 		frame.setDefaultCloseOperation(1);
 		frame.getContentPane().setLayout(null);
@@ -64,8 +64,8 @@ public class Range {
 		bottomNum.setColumns(10);
 		
 		topNum = new JTextField();
-		topNum.addKeyListener(new NumBox());
-		bottomNum.addKeyListener(new NumBox());
+		topNum.addKeyListener(new MKeyListener());
+		bottomNum.addKeyListener(new MKeyListener());
 		topNum.setBounds(183, 31, 86, 20);
 		frame.getContentPane().add(topNum);
 		topNum.setColumns(10);
@@ -94,8 +94,7 @@ public class Range {
     		main.setColors(startColor); 
 		}
 	}
-
-	class NumBox extends KeyAdapter {
+	class MKeyListener extends KeyAdapter {
         public void keyPressed(KeyEvent event) {
             if (event.getKeyCode() == KeyEvent.VK_ENTER) {
             		try {

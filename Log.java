@@ -25,6 +25,9 @@ public class Log {
 	private final Action action = new SwingAction();
 	JScrollPane scrollPane = new JScrollPane();
 
+	public JPanel panel = new JPanel();
+	JScrollPane scrollPane = new JScrollPane();
+
 	/**
 	 * Launch the application.
 	 */
@@ -59,6 +62,7 @@ public class Log {
 		});
 		btnNewButton.setBounds((frame.getWidth()/2)-(79/2),0, 79, 23);
 		frame.getContentPane().add(btnNewButton);
+
 	}
 	JFrame getFrame() {
 		return frame;
@@ -68,17 +72,17 @@ public class Log {
 	 */
 	private void initialize() {
 		frame = new JFrame();
-		frame.setBounds(100, 100, 448, 300);
-		frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+		frame.setBounds(100, 100, 304, 300);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
-		panel.setBounds(0, 30, 442, 241);
+		panel.setBounds(0, 0, 298, 271);
 		frame.getContentPane().add(panel);
 		panel.setLayout(null);
 		scrollPane.setBorder(new EmptyBorder(0, 0, 0, 0));
 		
 		scrollPane.setViewportBorder(new LineBorder(new Color(0, 0, 0)));
-		scrollPane.setBounds(0, 0, 442, 241);
+		scrollPane.setBounds(0, 0, 301, 274);
 		panel.add(scrollPane);
 		scrollPane.setAutoscrolls(true);
 		
