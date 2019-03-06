@@ -2,6 +2,8 @@ package MathGame;
 
 import java.awt.EventQueue;
 import java.awt.Font;
+import java.awt.Toolkit;
+
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -10,6 +12,7 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+import javax.swing.border.Border;
 import javax.swing.AbstractAction;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyAdapter;
@@ -20,11 +23,15 @@ import java.util.Random;
 import javax.swing.Action;
 import java.awt.event.ActionListener;
 import java.awt.Component;
+import java.awt.Dimension;
+
 import javax.swing.Box;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JPanel;
 import java.awt.Color;
+import javax.swing.JScrollBar;
+import javax.swing.JToggleButton;
 public class mainGame {
     boolean currentOp = true;
     JLabel Question = new JLabel("8x+8");
@@ -43,7 +50,9 @@ public class mainGame {
     static int streak;
     Color incorrectColor=new Color(255, 79, 79);
     Color correctColor=new Color(107, 255, 96);
+    Color normalColor = new Color(240,240,240);
 	static int totalCorrect=0;
+    JMenuBar menuBar = new JMenuBar();
     public static Range r;
     JMenuItem mntmSubtract = new JMenuItem("subtract");
     JLabel results;
@@ -91,6 +100,10 @@ public class mainGame {
      */
     public mainGame() {
     	initialize();
+    	Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+    	int width = (int)screenSize.getWidth();
+    	int height =(int) screenSize.getHeight();
+    	frmPractice.setLocation((width/2)-(frmPractice.getWidth()/2), (height/2)-(frmPractice.getHeight()/2));
     }
     //checks if the user answer is correct
     boolean checkIfCorrect() {
@@ -123,6 +136,9 @@ public class mainGame {
             return false;
         }
     }
+    JFrame getFrame() {
+    	return frmPractice;
+    }
     //key lisenter
     class TextBox extends KeyAdapter {
         public void keyPressed(KeyEvent event) {
@@ -142,10 +158,7 @@ public class mainGame {
             msg = "Correct!";
             streak++;
             totalCorrect++;
-        	frmPractice.getContentPane().setBackground(correctColor);
-        	r.getFrame().getContentPane().setBackground(correctColor);
-        	r.label.setBackground(correctColor);
-        	l.logBox.setBackground(correctColor);
+        	setColors(correctColor);
         } 
     	else {
         	incorrect++;
@@ -168,20 +181,16 @@ public class mainGame {
         		msg="Incorrect "+FirstNum+" - "+SecondNum+" is "+(FirstNum-SecondNum);
         	}
         	streak=0;
-        	frmPractice.getContentPane().setBackground(incorrectColor);
         	totalAns++;
-        	r.getFrame().getContentPane().setBackground(incorrectColor);
-        	r.label.setBackground(incorrectColor);
-        	l.logBox.setBackground(incorrectColor);
+        	setColors(incorrectColor);
         }
     	results.setText(msg);
-    	
     	//log
     	if(totalCorrect+incorrect!=1) {
-    		l.logBox.append("\n"+(totalCorrect+incorrect)+", "+OPS.GetEnum().name()+") "+msg+" you said: "+ans.getText()+" the correct answer is:"+getAns());
+    		l.logBox.append("\n"+(totalCorrect+incorrect)+", "+OPS.GetEnum().name()+") "+msg+" You said: "+ans.getText()+"\nThe correct answer is: "+getAns()+"\n");
     	}
     	else {
-    		l.logBox.append((totalCorrect+incorrect)+", "+OPS.GetEnum().name()+") "+msg+" you said: "+ans.getText()+" the correct answer is: "+getAns());
+    		l.logBox.append((totalCorrect+incorrect)+", "+OPS.GetEnum().name()+") "+msg+" You said: "+ans.getText()+"\nThe correct answer is: "+getAns()+"\n");
     	}
     	//end log code
     	Stats.setText("Correct: "+totalCorrect+"      Streak: "+streak+"      Incorrect: "+incorrect);
@@ -189,6 +198,15 @@ public class mainGame {
         ans.setText("");
         ans.requestFocus();
     }
+	public void setColors(Color c)
+	{
+    	frmPractice.getContentPane().setBackground(c);
+		r.getFrame().getContentPane().setBackground(c);
+    	l.getFrame().getContentPane().setBackground(c);
+        menuBar.setBackground(c);
+    	r.label.setBackground(c);
+    	l.logBox.setBackground(c);
+	}
     //sets up for ans
     String getAns() {
     	String answer ="";
@@ -260,7 +278,7 @@ public class mainGame {
         ans.setColumns(10);
 
         results = new JLabel("");
-        results.setBounds(0, 180, 424, 47);
+        results.setBounds(10, 184, 424, 47);
         results.setFont(new Font("Tahoma", Font.PLAIN, 20));
         results.setHorizontalAlignment(SwingConstants.CENTER);
         SolveForX.setBounds(0, 31, 444, 37);
@@ -270,7 +288,7 @@ public class mainGame {
         frmPractice.setDefaultCloseOperation(3);
         SolveForX.setHorizontalAlignment(SwingConstants.CENTER);
         SolveForX.setFont(new Font("Tahoma", Font.PLAIN, 25));
-        Question.setBounds(2, 81, 223, 37);
+        Question.setBounds(10, 81, 223, 37);
         Question.setFont(new Font("Tahoma", Font.PLAIN, 25));
         Question.setHorizontalAlignment(SwingConstants.TRAILING);
         frmPractice.getContentPane().setLayout(null);
@@ -280,7 +298,7 @@ public class mainGame {
         frmPractice.getContentPane().add(SolveForX);
         frmPractice.getContentPane().add(Question);
         frmPractice.setResizable(false);
-        JMenuBar menuBar = new JMenuBar();
+        menuBar.setForeground(Color.BLACK);
         frmPractice.setJMenuBar(menuBar);
         
         Component horizontalStrut_1 = Box.createHorizontalStrut(27);
