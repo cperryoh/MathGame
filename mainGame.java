@@ -172,13 +172,11 @@ public class mainGame {
     void printMsg() {;
     	String msg = "";
     	String answer = "";
-    	if (checkIfCorrect()) { //  I added the NOT operator so that you'd be confused! Shout out loud in class how long it took you
-    		// To find this?
+    	if (checkIfCorrect()) {
             msg = "Correct!";
             streak++;
             totalCorrect++;
         	setColors(correctColor);
-
         } 
     	else {
         	incorrect++;
@@ -207,13 +205,11 @@ public class mainGame {
         		msg="Incorrect "+FirstNum+" - "+SecondNum+" is "+(FirstNum-SecondNum);
         		answer=Integer.toString(FirstNum-SecondNum);
         	}
-        	// I switched the colors here again! Make sure to make them red again!
         	streak=0;
         	totalAns++;
         	setColors(incorrectColor);
 
         }
-    	//DecimalFormat dcm = new DecimalFormat("00.#");
     	results.setText(msg);
     	//log
     	if(totalCorrect+incorrect!=1) {
@@ -277,8 +273,7 @@ public class mainGame {
     //initializes the window
     private void initialize() {
 		
-        frmPractice = new JFrame(); // This line is missing a semi-colon! Have you read my other comments?
-        		// My comments will help you find the other bugs! Have fun! Might I suggest that you start from the top :D
+        frmPractice = new JFrame();
         frmPractice.setTitle("Practice");
         frmPractice.getContentPane().setForeground(Color.BLACK);
         frmPractice.setBounds(100, 100, 450, 300);
@@ -425,7 +420,7 @@ public class mainGame {
 	}
 	private class Algebra extends AbstractAction {
 		public Algebra() {
-			putValue(NAME, "Algebra"); // I changed this from Algebra to what you are currently seeing.
+			putValue(NAME, "Algebra"); 
 			putValue(SHORT_DESCRIPTION, "Some short description");
 		}
 		public void actionPerformed(ActionEvent e) {

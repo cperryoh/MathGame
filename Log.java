@@ -25,9 +25,6 @@ public class Log {
 	private final Action action = new SwingAction();
 	JScrollPane scrollPane = new JScrollPane();
 
-	public JPanel panel = new JPanel();
-	JScrollPane scrollPane = new JScrollPane();
-
 	/**
 	 * Launch the application.
 	 */
