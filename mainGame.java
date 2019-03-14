@@ -153,12 +153,10 @@ public class mainGame {
     void printMsg() {;
     	String msg = "";
     	String answer = "";
-    	if (checkIfCorrect()) { //  I added the NOT operator so that you'd be confused! Shout out loud in class how long it took you
-    		// To find this?
+    	if (checkIfCorrect()) {
             msg = "Correct!";
             streak++;
             totalCorrect++;
-            // Hey Momma Furan here! I switched the colors to make sure you would read my comments up above!
         	frmPractice.getContentPane().setBackground(Color.green);
         	l.logBox.setBackground(Color.GREEN);
         	l.panel.setBackground(Color.GREEN);
@@ -192,7 +190,6 @@ public class mainGame {
         		msg="Incorrect "+FirstNum+" - "+SecondNum+" is "+(FirstNum-SecondNum);
         		answer=Integer.toString(FirstNum-SecondNum);
         	}
-        	// I switched the colors here again! Make sure to make them red again!
         	streak=0;
         	frmPractice.getContentPane().setBackground(Color.RED);
         	l.logBox.setBackground(Color.red);
@@ -200,7 +197,6 @@ public class mainGame {
         	r.getFrame().getContentPane().setBackground(Color.RED);
         	r.label.setBackground(Color.red);
         }
-    	//DecimalFormat dcm = new DecimalFormat("00.#");
     	results.setText(msg);
     	
     	//log
@@ -255,8 +251,7 @@ public class mainGame {
     //initializes the window
     private void initialize() {
 		
-        frmPractice = new JFrame(); // This line is missing a semi-colon! Have you read my other comments?
-        		// My comments will help you find the other bugs! Have fun! Might I suggest that you start from the top :D
+        frmPractice = new JFrame();
         frmPractice.setTitle("Practice");
         frmPractice.getContentPane().setForeground(Color.BLACK);
         frmPractice.setBounds(100, 100, 450, 300);
@@ -403,7 +398,7 @@ public class mainGame {
 	}
 	private class Algebra extends AbstractAction {
 		public Algebra() {
-			putValue(NAME, "Algebra"); // I changed this from Algebra to what you are currently seeing.
+			putValue(NAME, "Algebra"); 
 			putValue(SHORT_DESCRIPTION, "Some short description");
 		}
 		public void actionPerformed(ActionEvent e) {
