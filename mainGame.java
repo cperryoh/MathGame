@@ -217,10 +217,10 @@ public class mainGame {
     	results.setText(msg);
     	//log
     	if(totalCorrect+incorrect!=1) {
-    		l.logBox.append("\n"+(totalCorrect+incorrect)+", "+OPS.GetEnum().name()+") "+msg+" You said: "+ans.getText()+"\nThe correct answer is: "+getAns()+"\n");
+    		l.logBox.append("\n"+(totalCorrect+incorrect)+", "+OPS.GetEnum().name()+") "+msg+" You said: "+ans.getText()+"\nThe correct answer is: "+ans.getText()+"\n");
     	}
     	else {
-    		l.logBox.append((totalCorrect+incorrect)+", "+OPS.GetEnum().name()+") "+msg+" You said: "+ans.getText()+"\nThe correct answer is: "+getAns()+"\n");
+    		l.logBox.append((totalCorrect+incorrect)+", "+OPS.GetEnum().name()+") "+msg+" You said: "+ans.getText()+"\nThe correct answer is: "+ans.getText()+"\n");
     	}
 
 
@@ -232,6 +232,7 @@ public class mainGame {
         ans.setText("");
         ans.requestFocus();
     }
+    
 	public void setColors(Color c)
 	{
     	frmPractice.getContentPane().setBackground(c);
