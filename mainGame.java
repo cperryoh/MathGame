@@ -2,6 +2,8 @@ package MathGame;
 
 import java.awt.EventQueue;
 import java.awt.Font;
+import java.awt.Toolkit;
+
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -10,6 +12,7 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+import javax.swing.border.Border;
 import javax.swing.AbstractAction;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyAdapter;
@@ -20,6 +23,8 @@ import java.util.Random;
 import javax.swing.Action;
 import java.awt.event.ActionListener;
 import java.awt.Component;
+import java.awt.Dimension;
+
 import javax.swing.Box;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
@@ -27,6 +32,8 @@ import javax.swing.JPanel;
 import javax.swing.JScrollBar;
 
 import java.awt.Color;
+import javax.swing.JScrollBar;
+import javax.swing.JToggleButton;
 public class mainGame {
     boolean currentOp = true;
     JLabel Question = new JLabel("8x+8");
@@ -43,7 +50,12 @@ public class mainGame {
     JLabel SolveForX = new JLabel("Solve for x");
     public static mainGame m;
     static int streak;
+    Color incorrectColor=new Color(255, 79, 79);
+    Color correctColor=new Color(107, 255, 96);
+    Color normalColor = new Color(240,240,240);
+
 	static int totalCorrect=0;
+    JMenuBar menuBar = new JMenuBar();
     public static Range r;
     JMenuItem mntmSubtract = new JMenuItem("subtract");
     JLabel results;
@@ -101,6 +113,10 @@ public class mainGame {
      */
     public mainGame() {
     	initialize();
+    	Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+    	int width = (int)screenSize.getWidth();
+    	int height =(int) screenSize.getHeight();
+    	frmPractice.setLocation((width/2)-(frmPractice.getWidth()/2), (height/2)-(frmPractice.getHeight()/2));
     }
     /**
      * Initialize the contents of the frame.
@@ -137,6 +153,9 @@ public class mainGame {
             return false;
         }
     }
+    JFrame getFrame() {
+    	return frmPractice;
+    }
     //key lisenter
     class MKeyListener extends KeyAdapter {
         public void keyPressed(KeyEvent event) {
@@ -157,11 +176,7 @@ public class mainGame {
             msg = "Correct!";
             streak++;
             totalCorrect++;
-        	frmPractice.getContentPane().setBackground(Color.green);
-        	l.logBox.setBackground(Color.GREEN);
-        	l.panel.setBackground(Color.GREEN);
-        	r.label.setBackground(Color.green);
-        	r.getFrame().getContentPane().setBackground(Color.GREEN);
+        	setColors(correctColor);
         } 
     	else {
         	incorrect++;
@@ -178,7 +193,7 @@ public class mainGame {
         		answer=Integer.toString((total+(-FirstNum))/SecondNum);
         	}
         	else if(OPS.GetEnum()==OperationEnum.operations.division) {
-        		msg="Incorrect "+FirstNum+" ÷ "+SecondNum+" is "+Integer.toString(FirstNum/SecondNum);
+        		msg="Incorrect "+FirstNum+" ï¿½ "+SecondNum+" is "+Integer.toString(FirstNum/SecondNum);
         		answer=Integer.toString(FirstNum/SecondNum);
         	}
 
@@ -191,20 +206,17 @@ public class mainGame {
         		answer=Integer.toString(FirstNum-SecondNum);
         	}
         	streak=0;
-        	frmPractice.getContentPane().setBackground(Color.RED);
-        	l.logBox.setBackground(Color.red);
         	totalAns++;
-        	r.getFrame().getContentPane().setBackground(Color.RED);
-        	r.label.setBackground(Color.red);
+        	setColors(incorrectColor);
+
         }
     	results.setText(msg);
-    	
     	//log
     	if(totalCorrect+incorrect!=1) {
-    		l.logBox.append("\n"+(totalCorrect+incorrect)+", "+OPS.GetEnum().name()+") "+msg);
+    		l.logBox.append("\n"+(totalCorrect+incorrect)+", "+OPS.GetEnum().name()+") "+msg+" You said: "+ans.getText()+"\nThe correct answer is: "+ans.getText()+"\n");
     	}
     	else {
-    		l.logBox.append((totalCorrect+incorrect)+", "+OPS.GetEnum().name()+") "+msg);
+    		l.logBox.append((totalCorrect+incorrect)+", "+OPS.GetEnum().name()+") "+msg+" You said: "+ans.getText()+"\nThe correct answer is: "+ans.getText()+"\n");
     	}
 
 
@@ -216,6 +228,15 @@ public class mainGame {
         ans.setText("");
         ans.requestFocus();
     }
+	public void setColors(Color c)
+	{
+    	frmPractice.getContentPane().setBackground(c);
+		r.getFrame().getContentPane().setBackground(c);
+    	l.getFrame().getContentPane().setBackground(c);
+        menuBar.setBackground(c);
+    	r.label.setBackground(c);
+    	l.logBox.setBackground(c);
+	}
     //sets up for ans
     public void Practice() {
     	Random rand = new Random();
@@ -231,7 +252,7 @@ public class mainGame {
     		else if(OPS.GetEnum()==OperationEnum.operations.division) {
     			ThirdNum = rand.nextInt(max-min+1) +min;
     			FirstNum=ThirdNum*SecondNum;
-    			Question.setText(FirstNum+" ÷ "+SecondNum+"=");
+    			Question.setText(FirstNum+" ï¿½ "+SecondNum+"=");
     		}
     		else if(OPS.GetEnum()==OperationEnum.operations.exponents) {
     			Question.setText(FirstNum+"^2  =");
@@ -264,7 +285,7 @@ public class mainGame {
         ans.setColumns(10);
 
         results = new JLabel("");
-        results.setBounds(0, 180, 424, 47);
+        results.setBounds(10, 184, 424, 47);
         results.setFont(new Font("Tahoma", Font.PLAIN, 20));
         results.setHorizontalAlignment(SwingConstants.CENTER);
         SolveForX.setBounds(0, 31, 444, 37);
@@ -274,7 +295,7 @@ public class mainGame {
         frmPractice.setDefaultCloseOperation(3);
         SolveForX.setHorizontalAlignment(SwingConstants.CENTER);
         SolveForX.setFont(new Font("Tahoma", Font.PLAIN, 25));
-        Question.setBounds(2, 81, 223, 37);
+        Question.setBounds(10, 81, 223, 37);
         Question.setFont(new Font("Tahoma", Font.PLAIN, 25));
         Question.setHorizontalAlignment(SwingConstants.TRAILING);
         frmPractice.getContentPane().setLayout(null);
@@ -283,7 +304,7 @@ public class mainGame {
         frmPractice.getContentPane().add(SolveForX);
         frmPractice.getContentPane().add(Question);
         frmPractice.setResizable(false);
-        JMenuBar menuBar = new JMenuBar();
+        menuBar.setForeground(Color.BLACK);
         frmPractice.setJMenuBar(menuBar);
         
         Component horizontalStrut_1 = Box.createHorizontalStrut(27);
@@ -416,7 +437,7 @@ public class mainGame {
 			OPS.SetEnum(OperationEnum.operations.division);
 			results.setText("");
 			Practice();
-            Question.setText(FirstNum+" ÷ "+SecondNum+"=");
+            Question.setText(FirstNum+" ï¿½ "+SecondNum+"=");
 		}
 	}
 	private class Exponents extends AbstractAction {
