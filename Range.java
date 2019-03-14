@@ -9,6 +9,7 @@ import javax.swing.JFrame;
 
 import javax.swing.JButton;
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 
 import javax.swing.JTextField;
@@ -25,6 +26,7 @@ public class Range {
 	public JTextField bottomNum;
 	private final Action action = new SwingAction();
 	private JTextField topNum;
+	Color startColor;
 	JButton EnterRangeBttn = new JButton("Enter");
 
 	public Label label = new Label("to");
@@ -46,6 +48,7 @@ public class Range {
 		frame.setDefaultCloseOperation(1);
 		frame.getContentPane().setLayout(null);
 		
+		startColor = main.getFrame().getContentPane().getBackground();
 		EnterRangeBttn.setAction(action);
 		EnterRangeBttn.setBounds(100, 92, 89, 23);
 		frame.getContentPane().add(EnterRangeBttn);
@@ -88,6 +91,7 @@ public class Range {
 				bottomNum.setText("");
 				topNum.setText("");
 			}
+    		main.setColors(startColor); 
 		}
 	}
 	class MKeyListener extends KeyAdapter {
@@ -100,6 +104,8 @@ public class Range {
         				bottomNum.setText("");
         				topNum.setText("");
         			}
+            		main.setColors(startColor);
+            		
             }
             else if(event.getKeyCode() == KeyEvent.VK_ESCAPE) {
             	main.ans.requestFocus(true);
