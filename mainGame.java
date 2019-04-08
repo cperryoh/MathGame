@@ -119,7 +119,7 @@ public class mainGame {
     	frmPractice.setLocation((width/2)-(frmPractice.getWidth()/2), (height/2)-(frmPractice.getHeight()/2));
     }
     
-    //checks if the user answer is correct
+    //checks if the user answerr is correct
     boolean checkIfCorrect() {
         if (!ans.getText().equals("")) 
         {
