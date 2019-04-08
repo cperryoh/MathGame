@@ -21,7 +21,6 @@ public class Log {
 
 	private JFrame frame;
 	JTextArea logBox = new JTextArea();
-	JPanel panel = new JPanel();
 	private final Action action = new SwingAction();
 	JScrollPane scrollPane = new JScrollPane();
 
@@ -47,9 +46,6 @@ public class Log {
 	public Log() {
 		initialize();
 		frame.setResizable(false);
-		logBox.setBorder(new EmptyBorder(0, 0, 0, 0));
-		logBox.setEditable(false);
-		logBox.setFont(new Font("Consolas", Font.PLAIN, 13));
 		
 		JButton btnNewButton = new JButton("Clear");
 		btnNewButton.setAction(action);
@@ -59,6 +55,9 @@ public class Log {
 		});
 		btnNewButton.setBounds((frame.getWidth()/2)-(79/2),0, 79, 23);
 		frame.getContentPane().add(btnNewButton);
+		logBox.setBorder(new EmptyBorder(0, 0, 0, 0));
+		logBox.setEditable(false);
+		logBox.setFont(new Font("Consolas", Font.PLAIN, 13));
 
 	}
 	JFrame getFrame() {
@@ -69,18 +68,14 @@ public class Log {
 	 */
 	private void initialize() {
 		frame = new JFrame();
-		frame.setBounds(100, 100, 304, 300);
+		frame.setBounds(100, 100, 422, 300);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
-		
-		panel.setBounds(0, 0, 298, 271);
-		frame.getContentPane().add(panel);
-		panel.setLayout(null);
+		scrollPane.setBounds(0, 0, 415, 260);
+		frame.getContentPane().add(scrollPane);
 		scrollPane.setBorder(new EmptyBorder(0, 0, 0, 0));
 		
 		scrollPane.setViewportBorder(new LineBorder(new Color(0, 0, 0)));
-		scrollPane.setBounds(0, 0, 301, 274);
-		panel.add(scrollPane);
 		scrollPane.setAutoscrolls(true);
 		
 		scrollPane.setViewportView(logBox);

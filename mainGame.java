@@ -118,11 +118,8 @@ public class mainGame {
     	int height =(int) screenSize.getHeight();
     	frmPractice.setLocation((width/2)-(frmPractice.getWidth()/2), (height/2)-(frmPractice.getHeight()/2));
     }
-    /**
-     * Initialize the contents of the frame.
-     */
-
-    //checks if the user answer is correct
+    
+    //checks if the user answerr is correct
     boolean checkIfCorrect() {
         if (!ans.getText().equals("")) 
         {
