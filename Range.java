@@ -2,6 +2,8 @@ package MathGame;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
@@ -55,18 +57,20 @@ public class Range {
 		
 		label.setFont(new Font("Dialog", Font.PLAIN, 13));
 		label.setAlignment(Label.CENTER);
-		label.setBounds(112, 31, 62, 22);
+		label.setBounds(125, 31, 38, 22);
 		frame.getContentPane().add(label);
 		
 		bottomNum = new JTextField();
-		bottomNum.setBounds(10, 31, 86, 20);
+		bottomNum.setBounds(10, 31, 109, 20);
 		frame.getContentPane().add(bottomNum);
 		bottomNum.setColumns(10);
 		
 		topNum = new JTextField();
+		main.createTooltip(topNum, "Top of range");
+		main.createTooltip(bottomNum, "Bottom of range");
 		topNum.addKeyListener(new MKeyListener());
 		bottomNum.addKeyListener(new MKeyListener());
-		topNum.setBounds(183, 31, 86, 20);
+		topNum.setBounds(169, 31, 110, 20);
 		frame.getContentPane().add(topNum);
 		topNum.setColumns(10);
 	}
@@ -111,6 +115,14 @@ public class Range {
             	main.ans.requestFocus(true);
             	frame.setVisible(false);
             }
+        }
+		@Override
+		 public void keyTyped(KeyEvent e) {
+            if (!Character.isDigit(e.getKeyChar())&&e.getKeyCode()!=KeyEvent.VK_ENTER) {
+                e.consume();
+                
+            }
+           
         }
     }
 }

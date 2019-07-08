@@ -34,6 +34,9 @@ import javax.swing.JScrollBar;
 import java.awt.Color;
 import javax.swing.JScrollBar;
 import javax.swing.JToggleButton;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
+import javax.swing.JFormattedTextField;
 public class mainGame {
     boolean currentOp = true;
     JLabel Question = new JLabel("8x+8");
@@ -80,15 +83,6 @@ public class mainGame {
     	Practice();
     }
     public static void main(String[] args) {
-    	/**
-    	 * Hi Cole,
-    	 * Momma Furan here. This game is very interesting! You should add a timer that counts how long a user practices.
-    	 * You could also have a test option that limits the amount of time a user has to answer!
-    	 * Yell out in your AP COMP-SCI Class "I LOVE MOMMA FURAN!"
-    	 *  
-    	 * Yours Truly,
-    	 * Momma Furan
-    	 * */
         EventQueue.invokeLater(new Runnable() {
             public void run() {
                 try {
@@ -123,6 +117,7 @@ public class mainGame {
     boolean checkIfCorrect() {
         if (!ans.getText().equals("")) 
         {
+        	//Checks if the answer is correct for each operation
             if (OPS.GetEnum()==OperationEnum.operations.additon) 
             {
             	return FirstNum + SecondNum == Integer.parseInt(ans.getText());
@@ -165,8 +160,13 @@ public class mainGame {
             	System.exit(0);
             }
         }
+        public void keyTyped(KeyEvent e) {
+            if (!Character.isDigit(e.getKeyChar())&&e.getKeyChar()!='-'&&e.getKeyChar()!='.'&&e.getKeyCode()!=KeyEvent.VK_ENTER)
+                e.consume();
+        }
     }
-    void printMsg() {;
+    void printMsg() {
+    	//Determines the message that the user sees when they enter their answer
     	String msg = "";
     	String answer = "";
     	if (checkIfCorrect()) {
@@ -220,6 +220,8 @@ public class mainGame {
     	JScrollBar vertical = l.scrollPane.getVerticalScrollBar();
     	vertical.setValue( vertical.getMaximum());
     	//end log code
+    	
+    	//updates the sats and sets up for next question
     	Stats.setText("Correct: "+totalCorrect+"      Streak: "+streak+"      Incorrect: "+incorrect);
         Practice();
         ans.setText("");
@@ -228,6 +230,7 @@ public class mainGame {
     
 	public void setColors(Color c)
 	{
+		//Function for changing colors for incorrect/correct
     	frmPractice.getContentPane().setBackground(c);
 		r.getFrame().getContentPane().setBackground(c);
     	l.getFrame().getContentPane().setBackground(c);
@@ -236,7 +239,9 @@ public class mainGame {
     	l.logBox.setBackground(c);
 	}
     //sets up for ans
+	
     public void Practice() {
+    	//sets up question
     	Random rand = new Random();
     	FirstNum = rand.nextInt(max-min+1) +min;
         SecondNum = rand.nextInt(max-min+1) +min;
@@ -250,7 +255,7 @@ public class mainGame {
     		else if(OPS.GetEnum()==OperationEnum.operations.division) {
     			ThirdNum = rand.nextInt(max-min+1) +min;
     			FirstNum=ThirdNum*SecondNum;
-    			Question.setText(FirstNum+" � "+SecondNum+"=");
+    			Question.setText(FirstNum+" / "+SecondNum+"=");
     		}
     		else if(OPS.GetEnum()==OperationEnum.operations.exponents) {
     			Question.setText(FirstNum+"^2  =");
@@ -276,7 +281,10 @@ public class mainGame {
         frmPractice.setBounds(100, 100, 450, 300);
 
         ans = new JTextField();
-        ans.setBounds(235, 79, 133, 36);
+        createTooltip(ans,"Answer here");
+        ans.setText("Answer here");
+		ans.setForeground(Color.gray);
+        ans.setBounds(235, 79, 185, 36);
         ans.addKeyListener(new MKeyListener());
         ans.setFont(new Font("Tahoma", Font.PLAIN, 30));
         ans.setToolTipText("");
@@ -361,6 +369,26 @@ public class mainGame {
 
     //enter button action
     //addition menue item action
+    public void createTooltip(JTextField tf, String message) {
+    	tf.setText(message);
+    	tf.setForeground(Color.gray);
+    	tf.addFocusListener(new FocusAdapter() {
+        	@Override
+        	public void focusGained(FocusEvent arg0) {
+        		if(tf.getText().equals(message)) {
+        			tf.setText("");
+        		}
+        		tf.setForeground(Color.black);
+        	}
+        	@Override
+        	public void focusLost(FocusEvent e) {
+        		if(tf.getText().equals("")) {
+        			tf.setText(message);
+        			tf.setForeground(Color.gray);
+        		}
+        	}
+        });
+    }
     private class additon extends AbstractAction {
         public additon() {
             putValue(NAME, "Add");
