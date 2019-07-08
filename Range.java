@@ -120,7 +120,6 @@ public class Range {
 		 public void keyTyped(KeyEvent e) {
             if (!Character.isDigit(e.getKeyChar())&&e.getKeyCode()!=KeyEvent.VK_ENTER) {
                 e.consume();
-                
             }
            
         }

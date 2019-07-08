@@ -161,8 +161,9 @@ public class mainGame {
             }
         }
         public void keyTyped(KeyEvent e) {
-            if (!Character.isDigit(e.getKeyChar())&&e.getKeyChar()!='-'&&e.getKeyChar()!='.'&&e.getKeyCode()!=KeyEvent.VK_ENTER)
+            if (!Character.isDigit(e.getKeyChar())&&e.getKeyChar()!='-'&&e.getKeyChar()!='.'&&e.getKeyCode()!=KeyEvent.VK_ENTER) {
                 e.consume();
+            }
         }
     }
     void printMsg() {
@@ -281,9 +282,7 @@ public class mainGame {
         frmPractice.setBounds(100, 100, 450, 300);
 
         ans = new JTextField();
-        createTooltip(ans,"Answer here");
-        ans.setText("Answer here");
-		ans.setForeground(Color.gray);
+        createTooltip(ans," Answer here");
         ans.setBounds(235, 79, 185, 36);
         ans.addKeyListener(new MKeyListener());
         ans.setFont(new Font("Tahoma", Font.PLAIN, 30));
