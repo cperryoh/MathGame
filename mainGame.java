@@ -80,15 +80,6 @@ public class mainGame {
     	Practice();
     }
     public static void main(String[] args) {
-    	/**
-    	 * Hi Cole,
-    	 * Momma Furan here. This game is very interesting! You should add a timer that counts how long a user practices.
-    	 * You could also have a test option that limits the amount of time a user has to answer!
-    	 * Yell out in your AP COMP-SCI Class "I LOVE MOMMA FURAN!"
-    	 *  
-    	 * Yours Truly,
-    	 * Momma Furan
-    	 * */
         EventQueue.invokeLater(new Runnable() {
             public void run() {
                 try {
@@ -190,7 +181,7 @@ public class mainGame {
         		answer=Integer.toString((total+(-FirstNum))/SecondNum);
         	}
         	else if(OPS.GetEnum()==OperationEnum.operations.division) {
-        		msg="Incorrect "+FirstNum+" � "+SecondNum+" is "+Integer.toString(FirstNum/SecondNum);
+        		msg="Incorrect "+FirstNum+" / "+SecondNum+" is "+Integer.toString(FirstNum/SecondNum);
         		answer=Integer.toString(FirstNum/SecondNum);
         	}
 
@@ -209,11 +200,12 @@ public class mainGame {
         }
     	results.setText(msg);
     	//log
-    	if(totalCorrect+incorrect!=1) {
+    	if(totalCorrect+incorrect!=1) 
+    	{
     		l.logBox.append("\n"+(totalCorrect+incorrect)+", "+OPS.GetEnum().name()+") "+msg+" You said: "+ans.getText()+"\nThe correct answer is: "+ans.getText()+"\n");
     	}
     	else {
-    		l.logBox.append((totalCorrect+incorrect)+", "+OPS.GetEnum().name()+") "+msg+" You said: "+ans.getText()+"\nThe correct answer is: "+ans.getText()+"\n");
+    		l.logBox.append((totalCorrect+incorrect)+", "+OPS.GetEnum().name()+") "+msg+" You said: "+ans.getText());
     	}
 
 
@@ -250,7 +242,7 @@ public class mainGame {
     		else if(OPS.GetEnum()==OperationEnum.operations.division) {
     			ThirdNum = rand.nextInt(max-min+1) +min;
     			FirstNum=ThirdNum*SecondNum;
-    			Question.setText(FirstNum+" � "+SecondNum+"=");
+    			Question.setText(FirstNum+" / "+SecondNum+"=");
     		}
     		else if(OPS.GetEnum()==OperationEnum.operations.exponents) {
     			Question.setText(FirstNum+"^2  =");
@@ -435,7 +427,7 @@ public class mainGame {
 			OPS.SetEnum(OperationEnum.operations.division);
 			results.setText("");
 			Practice();
-            Question.setText(FirstNum+" � "+SecondNum+"=");
+            Question.setText(FirstNum+" / "+SecondNum+"=");
 		}
 	}
 	private class Exponents extends AbstractAction {
